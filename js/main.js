@@ -16,7 +16,6 @@
 		navMenu.classList.remove("open");
 		fadeOutEffect();
 		bodyCrollingToggle();
-
 	}
 
 	function fadeOutEffect(){

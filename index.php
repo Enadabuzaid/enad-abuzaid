@@ -1,33 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Enad Abuzaid</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<?php require 'config/Db.php'; ?>
+<?php require 'include/head.php'; ?>
 
-	<!-- font awesome -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
-	<!-- main css -->
-	<link rel="stylesheet" href="css/style.css">
-	<!-- responsive css -->
-	<link rel="stylesheet" href="css/responsive.css">
-	<!-- default skin -->
-	<link rel="stylesheet" href="css/color-1.css">
-	<!-- style switcher -->
-	<link rel="stylesheet" href="css/color-1.css" type="text/css" class="alternate-style" title="color-1" >
-	<link rel="stylesheet" href="css/color-2.css" type="text/css" class="alternate-style" title="color-2" disabled>
-	<link rel="stylesheet" href="css/color-3.css" type="text/css" class="alternate-style" title="color-3" disabled>
-	<link rel="stylesheet" href="css/color-4.css" type="text/css" class="alternate-style" title="color-4" disabled>
-	<link rel="stylesheet" href="css/color-5.css" type="text/css" class="alternate-style" title="color-5" disabled>
-	<link rel="stylesheet" href="css/color-6.css" type="text/css" class="alternate-style" title="color-6" disabled>
-	<link rel="stylesheet" href="css/color-7.css" type="text/css" class="alternate-style" title="color-7" disabled>
-	<link rel="stylesheet" href="css/color-8.css" type="text/css" class="alternate-style" title="color-8" disabled>
-	<link rel="stylesheet" href="css/color-9.css" type="text/css" class="alternate-style" title="color-9" disabled>
-	<link rel="stylesheet" href="css/color-10.css" type="text/css" class="alternate-style" title="color-10" disabled>
+<?php 
+	$data = new DbConnection;
 
-	<link rel="stylesheet" href="css/style-switcher.css">
-
-</head>
-<body>
+?>
 <!-- preloader -->
 <div class="preloader">
 	<div class="box">
@@ -43,7 +20,7 @@
 	<div class="container">
 		<div class="row justify-content-between">
 			<div class="logo">
-				<a href="index.html">E</a>
+				<a href="index.php">E</a>
 			</div>
 			<div class="hamburger-btn outer-shadow hover-in-shadow">
 				<span></span>
@@ -58,6 +35,12 @@
 	<div class="close-nav-menu outer-shadow hover-in-shadow">&times;</div>
 	<div class="nav-menu-inner">
 		<ul>
+		<!-- <?php 
+				$menu_data = $data->select('menu','menu_status = 1');
+				foreach($menu_data as $menu){	
+				echo '<li><a href="#'.$menu['menu_name'].'" class="link-item inner-shadow">'.$menu['menu_name'].'</a></li>';
+            }
+		?>	 -->
 			<li><a href="#home" class="link-item inner-shadow active"> home</a></li>
 			<li><a href="#about" class="link-item outer-shadow hover-in-shadow">about</a></li>
 			<li><a href="#services" class="link-item outer-shadow hover-in-shadow">services</a></li>
@@ -65,6 +48,8 @@
 			<li><a href="#testimonal" class="link-item outer-shadow hover-in-shadow">testimonial</a></li>
 			<!-- <li><a href="#certifications" class="link-item outer-shadow hover-in-shadow">certifications</a></li> -->
 			<li><a href="#contact" class="link-item outer-shadow hover-in-shadow">contact</a></li>
+
+
 		</ul>
 	</div>
 	<!-- copyright-->
@@ -1201,12 +1186,6 @@
 
 
 
-<!-- / main js-->
-<script type="text/javascript" src="js/main.js"></script>
-
-<!-- style js -->
-<script type="text/javascript" src="js/style-switch.js"></script>
-</body>
-</html>
+<?php require 'include/footer.php' ?>
 
 
