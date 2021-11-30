@@ -201,65 +201,23 @@
 				<div class="skills tab-content active">
 					<div class="row">
 						<!-- skill item start -->
+						<?php 
+						$skill_data = $data->select('skills','skill_status = 1');
+						foreach($skill_data as $skill){	
+						?>	
 						<div class="skill-item">
-							<p>HTML</p>
+							<p><?php echo $skill['skill_name'] ?></p>
 							<div class="progress inner-shadow">
-								<div class="progress-bar" style="width: calc(80% - 14px)">
-									<span>90%</span>
+								<div class="progress-bar" style="width: calc(<?php echo $skill['skill_progress'] ?>% - 14px)">
+									<span><?php echo $skill['skill_progress'] ?>%</span>
 								</div>
 							</div>
 						</div>
-						<!-- skill item end -->
-						<!-- skill item start -->
-						<div class="skill-item">
-							<p>JavaScript</p>
-							<div class="progress inner-shadow">
-								<div class="progress-bar" style="width: calc(60% - 14px)">
-									<span>60%</span>
-								</div>
-							</div>
-						</div>
-						<!-- skill item end -->
-						<!-- skill item start -->
-						<div class="skill-item">
-							<p>CSS</p>
-							<div class="progress inner-shadow">
-								<div class="progress-bar" style="width: calc(88% - 14px)">
-									<span>88%</span>
-								</div>
-							</div>
-						</div>
-						<!-- skill item end -->		
-						<!-- skill item start -->
-						<div class="skill-item">
-							<p>PHP</p>
-							<div class="progress inner-shadow">
-								<div class="progress-bar" style="width: calc(70% - 14px)">
-									<span>70%</span>
-								</div>
-							</div>
-						</div>
-						<!-- skill item start -->
-						<div class="skill-item">
-							<p>Laravel</p>
-							<div class="progress inner-shadow">
-								<div class="progress-bar" style="width: calc(70% - 14px)">
-									<span>70%</span>
-								</div>
-							</div>
-						</div>
-						<!-- skill item end -->
-						<!-- skill item start -->
-						<div class="skill-item">
-							<p>WordPress</p>
-							<div class="progress inner-shadow">
-								<div class="progress-bar" style="width: calc(88% - 14px)">
-									<span>88%</span>
-								</div>
-							</div>
-						</div>
+
+						<?php } ?>
 						<!-- skill item end -->
 
+						
 					</div>
 				</div>
 			</div>
@@ -271,35 +229,21 @@
 						<div class="timeline">
 							<div class="row">
 								<!-- timeline-item -->
-								<div class="timeline-item">
-									<div class="timeline-item-inner outer-shadow"><i class="fas fa-briefcase icon"></i>
-										<span>Nov,2020 -cuurent</span>
-										<h3>full stack developer</h3>
-										<h4>smart station</h4>
-										<p> it was with friends I learned a lot of skill like how to solve and research the problem , I made websites in wordpress ,Learned backend with larvel and improve myself more and more ,and learned API .</p>
+								<?php 
+									$experience_data = $data->select('experience','experience_status = 1');
+									foreach($experience_data as $experience){	
+								?>	
+									<div class="timeline-item">
+										<div class="timeline-item-inner outer-shadow"><i class="fas fa-briefcase icon"></i>
+											<span><?php echo $experience['experience_start'] ." - ".  $experience['experience_end'];?></span>
+											<h3><?php echo $experience['experience_title'];?></h3>
+											<h4><?php echo $experience['experience_company'];?></h4>
+											<p><?php echo $experience['experience_des'];?></p>
+										</div>
 									</div>
-								</div>
+								<?php } ?>
 								<!-- Endtimeline-item -->
-								<!-- timeline-item -->
-								<div class="timeline-item">
-									<div class="timeline-item-inner outer-shadow"><i class="fas fa-briefcase icon"></i>
-										<span>Jan,2020 -March,2020</span>
-										<h3>teller and Data entry </h3>
-										<h4>Al-fasel</h4>
-										<p> it was short time because of corona but I learned some skills</p>
-									</div>
-								</div>
-								<!-- Endtimeline-item -->
-								<!-- timeline-item -->
-								<!-- <div class="timeline-item">
-									<div class="timeline-item-inner outer-shadow"><i class="fas fa-briefcase icon"></i>
-										<span>sep,2012 -May,2019</span>
-										<h3>wordpress developer</h3>
-										<h4>smart station</h4>
-										<p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, earum officia numquam ab doloremque accusamus totam enim cupiditate dolor optio</p>
-									</div>
-								</div> -->
-								<!-- Endtimeline-item -->
+								
 							</div>
 						</div>
 					</div>
