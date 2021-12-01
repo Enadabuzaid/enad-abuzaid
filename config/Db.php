@@ -30,19 +30,19 @@ Class DbConnection
          return $array;  
     }  
 
-    // public function createDataBase()
-    // {
-    //     if(!mysqli_select_db($this->conn,$this->database)){
-    //         $sql = "CREATE DATABASE " . $this->database;
-    //         if($this->conn->query($sql)){
-    //             echo "Database <b>({$this->database})</b> created successfully ..";
-    //         } else {
-    //             echo "Erro creating database : " . $this->conn->error;
-    //         }
-    //     } else {
-    //         echo "Database <b>({$this->database})</b> already exist ..";
-    //     } // check if database exist 
-    // }
+    public function createDataBase()
+    {  
+            $sql = "CREATE DATABASE " . $this->database;
+            if($this->conn->query($sql)){
+                echo "Database <b>({$this->database})</b> created successfully ..";
+            } else {
+                echo "Erro creating database : " . $this->conn->error;
+            }
+    }
+
+    public function createTabels(){
+        
+    }
 }
 
 ?>

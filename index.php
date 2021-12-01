@@ -271,26 +271,6 @@
 									</div>
 								</div>
 								<!-- Endtimeline-item -->
-								<!-- timeline-item -->
-								<!-- <div class="timeline-item">
-									<div class="timeline-item-inner outer-shadow"><i class="fas fa-graduation-cap icon"></i>
-										<span>2012 -2014</span>
-										<h3>web design</h3>
-										<h4>smart station</h4>
-										<p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, earum officia numquam ab doloremque accusamus totam enim cupiditate dolor optio</p>
-									</div>
-								</div> -->
-								<!-- Endtimeline-item -->
-								<!-- timeline-item -->
-								<!-- <div class="timeline-item">
-									<div class="timeline-item-inner outer-shadow"><i class="fas fa-graduation-cap icon"></i>
-										<span>sep,2012 -May,2019</span>
-										<h3>wordpress developer</h3>
-										<h4>smart station</h4>
-										<p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, earum officia numquam ab doloremque accusamus totam enim cupiditate dolor optio</p>
-									</div>
-								</div> -->
-								<!-- Endtimeline-item -->
 							</div>
 						</div>
 					</div>
@@ -302,7 +282,6 @@
 
 
 		</div>
-			<center><a href="#services" class="link-item btn-1 outer-shadow hover-in-shadow" style="margin-bottom:30px;margin-top:25px">See Services</a></center>
 
 	</section>
 	<!-- / End about section-->
@@ -318,75 +297,25 @@
 			</div>
 			<div class="row">
 				<!-- service item -->
-				<div class="service-item">
-					<div class="service-item-inner outer-shadow">
-						<div class="icon inner-shadow">
-							<i class="fas fa-mobile-alt"></i>
+				<?php 
+						$service_data = $data->select('services','service_status = 1');
+						foreach($service_data as $service){	
+						?>	
+						<div class="service-item">
+							<div class="service-item-inner outer-shadow">
+								<div class="icon inner-shadow">
+									<i class="<?php echo $service['service_icon'];?>"></i>
+								</div>
+								<h3><?php echo $service['service_title'];?></h3>
+								<p><?php echo $service['service_desc'];?></p>
+							</div>
 						</div>
-						<h3>Responsive design</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-				 	</div>
-				</div>
-				<!-- end service item -->
-				<!-- service item -->
-				<div class="service-item">
-					<div class="service-item-inner outer-shadow">
-						<div class="icon inner-shadow">
-							<i class="fas fa-laptop-code"></i>
-						</div>
-						<h3>web design</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-				 	</div>
-				</div>
-				<!-- end service item -->
-				<!-- service item -->
-				<div class="service-item">
-					<div class="service-item-inner outer-shadow">
-						<div class="icon inner-shadow">
-							<i class="fas fa-code"></i>
-						</div>
-						<h3>clean code</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-				 	</div>
-				</div>
-				<!-- end service item -->
-				<!-- service item -->
-				<div class="service-item">
-					<div class="service-item-inner outer-shadow">
-						<div class="icon inner-shadow">
-							<i class="fas fa-search"></i>
-						</div>
-						<h3>seo </h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-				 	</div>
-				</div>
-				<!-- end service item -->
-				<!-- service item -->
-				<div class="service-item">
-					<div class="service-item-inner outer-shadow">
-						<div class="icon inner-shadow">
-							<i class="fas fa-bullhorn"></i>
-						</div>
-						<h3>Great support </h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-				 	</div>
-				</div>
-				<!-- end service item -->
-				<!-- service item -->
-				<div class="service-item">
-					<div class="service-item-inner outer-shadow">
-						<div class="icon inner-shadow">
-							<i class="fab fa-wordpress-simple"></i>
-						</div>
-						<h3>WordPress</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-				 	</div>
-				</div>
-				<!-- end service item -->
+						
 
+				<?php } ?>
+				<!-- end service item -->	
 			</div>
 		</div>
-		<center><a href="#portfolio" class="link-item btn-1 outer-shadow hover-in-shadow" style="margin-bottom:40px">See My work</a></center>
 	</section>
 	<!-- end service section  -->
 
