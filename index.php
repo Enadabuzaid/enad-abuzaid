@@ -333,16 +333,94 @@
 					<div class="portfolio-filter">
 						<span class="filter-item outer-shadow active" data-target="all">
 						all</span>
-						<span class="filter-item" data-target="web-application">web application</span>
-						<span class="filter-item" data-target="web-design">web design</span>
-						<span class="filter-item" data-target="wordpress">WordPress</span>
-						<span class="filter-item" data-target="design">Design</span>
+						<?php 
+						$project_type_data = $data->select('project_type','project_type_status = 1');
+						foreach($project_type_data as $project_type){	
+						?>
+						<span class="filter-item" data-target="<?php echo $project_type['project_target'];?>"><?php echo $project_type['project_type_name'];?></span>
+						<?php } ?>
 					</div>
 				</div>
 				<!-- end portfolio product-->
 
 				<!-- start portfolio product item-->
 					<div class="row portfolio-items">
+
+					<?php 
+						$project_data = $data->select('projects','project_status = 1');
+						foreach($project_data as $project){	
+							$project_type_number = $project['project_type'];
+							$project_id = $project['project_id'];
+
+					?>	
+				<!-- start portfolio  item-->
+				<?php 
+						$project_type_data2 = $data->select('project_type',"project_type_status = 1 AND project_type_id = $project_type_number");
+						foreach($project_type_data2 as $project_type2){		
+				?>
+						<div class="portfolio-item" data-category="<?php echo $project_type2['project_target']; ?>">
+				<?php } ?>
+							<div class="portfolio-item-inner outer-shadow">
+								<div class="portfolio-item-img">
+								<?php 
+									$photo = [];
+										$project_photos = $data->select('project_photos',"photo_status = 1 AND project_id = $project_id");
+										foreach($project_photos as $project_photo){	
+											array_push($photo,$project_photo['photo']);
+										}
+										
+										
+								?>
+									<img src="img/<?php echo $project['project_cover'];?>" alt="pro1" data-screenshots="
+										<?php 
+											echo 'img/'.$project['project_cover'].',';
+											for($i=0; $i < count($photo) - 1; $i++){
+												echo $img = "img/".$photo[$i].",";
+											}
+											echo 'img/'.end($photo);
+										?>
+									">
+								 
+									<!-- view project btn-->
+									<span class="view-project">view project</span>
+								</div>
+								<p class="portfolio-item-title"><?php echo $project['project_title'];?></p>
+
+
+												<!-- start portfolio  details-->
+														<div class="portfolio-item-details">
+														<?php 
+																$project_details = $data->select('project_details',"project_details_status = 1 AND project_id = $project_id");
+																foreach($project_details as $project_detail){		
+															?>
+															<div class="row">
+																<div class="description">
+																	<h3>Project Brief</h3>
+																	<p><?php echo $project_detail['project_brief'] ?></p>
+																</div>
+																<div class="info">
+																	<h3>Project info</h3>
+																		<ul>
+																			<li>Date - <span><?php echo $project_detail['date'] ?>.</span></li>
+																			<li>Client - <span><?php echo $project_detail['client'] ?>.</span></li>
+																			<li>Tools - <span><?php echo $project_detail['tools'] ?>.</span></li>
+																			<li>demo - <span><a href="<?php echo $project_detail['demo'] ?>">Visit</a></span></li>
+																			<li>code - <span><a href="<?php echo $project_detail['code'] ?>">code</a></span></li>
+																			<li>more screenshots - <span><a href="<?php echo $project_detail['screenshot_link'] ?>">link</a></span></li>
+																		</ul>
+																</div>
+															</div>
+															<?php } ?>
+														</div>
+													<!-- end portfolio  details-->
+											
+							</div>
+						</div>
+					<!-- end portfolio  item-->
+
+						
+
+				<?php } ?>
 						<!-- start portfolio  item-->
 							<div class="portfolio-item" data-category="web-application">
 								<div class="portfolio-item-inner outer-shadow">
@@ -498,7 +576,7 @@
 																		<h3>Project info</h3>
 																			<ul>
 																				<li>Date - <span>2020</span></li>
-																				<li>Clinen - <span>xyz</span></li>
+																				<li>Client - <span>xyz</span></li>
 																				<li>Tools - <span>html,css,js</span></li>
 																				<li>web - <span><a href="www.domian.com"></a></span></li>
 																			</ul>
@@ -987,7 +1065,7 @@
 				<div class="pp-details-inner">
 					<div class="pp-title">
 						<h2>invoices Project</h2>
-						<p>Category - <span class="pp-project-category">Web Application</span></p>
+						<p>Category - <span class="pp-project-category"><?php echo $project_type2['project_target']; ?></span></p>
 					</div>
 					<div class="pp-project-details">
 						<div class="row">
