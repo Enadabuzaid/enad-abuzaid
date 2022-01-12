@@ -180,7 +180,9 @@
 							designing and developing
 							websites in an attractive and
 							creative way.</p>
+					<p>numquam ab doloremque accusamus totam enim cupiditate dolor optio, sed at, laborum tenetur id voluptatum sunt facere? Reprehenderit, excepturi.numquam ab doloremque accusamus totam enim cupiditate dolor optio, sed at, laborum tenetur id voluptatum sunt facere? Reprehenderit, excepturi.</p>
 					<!-- <p>numquam ab doloremque accusamus totam enim cupiditate dolor optio, sed at, laborum tenetur id voluptatum sunt facere? Reprehenderit, excepturi.numquam ab doloremque accusamus totam enim cupiditate dolor optio, sed at, laborum tenetur id voluptatum sunt facere? Reprehenderit, excepturi.</p> -->
+
 					<a href="Enad_abuzaid.pdf" class="link-item btn-1 outer-shadow hover-in-shadow">Download CV</a>
 					<a href="#contact" class="btn-1 outer-shadow hover-in-shadow">Hire ME</a>
 				</div>
