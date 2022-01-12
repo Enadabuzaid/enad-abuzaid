@@ -28,4 +28,27 @@ Class Paragraph extends DbConnection{
     }  
     return $array;  
   }
+
+
+  public function deleteData($id){
+    $sql = "UPDATE `about_section_paragraphs` SET paragraph_status='0' WHERE paragraph_id=$id";
+
+    if($this->conn->query($sql)){
+      return true;
+    } else {
+      return "error ". $this->conn->error;
+    }
+
+  }
+
+  public function returnData($id){
+    $sql = "UPDATE `about_section_paragraphs` SET paragraph_status='1' WHERE paragraph_id=$id";
+
+    if($this->conn->query($sql)){
+      return true;
+    } else {
+      return "error ". $this->conn->error;
+    }
+    
+  }
 }

@@ -1,7 +1,21 @@
 <?php require 'about-section/Paragraph.php'; ?>
 <?php  require 'admin-includes/header.php';?>
 
+<script>
 
+
+    function setId(id){
+    // document.querySelector("#id").innerHTML = id;
+    document.getElementById("para_id").value = id;
+
+}
+
+function setReturnId(id){
+    // document.querySelector("#id").innerHTML = id;
+    document.getElementById("para_id_return").value = id;
+
+}
+</script>
 <?php 
 $data = new Paragraph();
 $paragraphs = $data->selectData();
@@ -15,12 +29,34 @@ if(isset($_POST['add_paragraph'])){
     ];
 
     if($data->insertData($insert_data)){
-        $succss = "Paragraph Added Succefully .. ";
+        $message = "Paragraph Added Succefully .. ";
+        $message_color ="success";
         header('Refresh: 3');
     }
 
 }
 
+if(isset($_POST['delete_paragraph'])){
+    $para_id =$_POST['para_id'];
+
+    if($data->deleteData($para_id)){
+        $message = "Paragraph deleted !!";
+        $message_color ="danger";
+        header('Refresh: 3');
+
+    }
+}
+
+if(isset($_POST['return_paragraph'])){
+    $para_id =$_POST['para_id'];
+
+    if($data->returnData($para_id)){
+        $message = "Paragraph returned !!";
+        $message_color ="warning";
+        header('Refresh: 3');
+
+    }
+}
 ?>
 
 
@@ -47,11 +83,11 @@ if(isset($_POST['add_paragraph'])){
             <!-- success message  -->
             <?php 
 
-                if(isset($succss)){
+                if(isset($message)){
 
             ?>
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong><?php echo $succss; ?></strong> You should check it.
+                <div class="alert alert-<?php echo $message_color ?> alert-dismissible fade show" role="alert">
+                    <strong><?php echo $message; ?></strong> You should check it.
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -60,7 +96,7 @@ if(isset($_POST['add_paragraph'])){
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-                    <a href="#" class="btn-sm btn-primary btn-icon-split mb-4 text-right" data-toggle="modal" data-target="#addModal" style="margin-left:75rem">
+                    <a href="#" class="btn-sm btn-primary btn-icon-split mb-4 text-right" data-toggle="modal" data-target="#addModal">
                         <span class="icon text-white-50">
                         <i class="fas fa-plus"></i>                      
                         </span>
@@ -72,14 +108,18 @@ if(isset($_POST['add_paragraph'])){
                             echo "<div class='alert alert-danger' role='alert'>No paragraph yet!!. add new one .</div>";
                         }
                         foreach($paragraphs as $paragraph){
+                        
+
                             if($paragraph['paragraph_status'] == 1){
-                                    $text = "primary";
                                     $status = "Ative";
                                     $bg = "success";
+                                    $text = "primary";
+
                                 } else {
-                                    $text = "danger";
                                     $status = "Deleted";
-                                $bg = "danger";
+                                    $bg = "danger";
+                                    $text = "danger";
+
                             }
                     ?>
 <!-- Dropdown Card Example -->
@@ -87,7 +127,7 @@ if(isset($_POST['add_paragraph'])){
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-<?php echo $text ?>">paragraph <?php echo $i++; ?></h6>
+                                    <h6 class="m-0 font-weight-bold text-<?php echo $text ?>">paragraph <?php echo $i++ ; ?></h6>
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -97,7 +137,11 @@ if(isset($_POST['add_paragraph'])){
                                             aria-labelledby="dropdownMenuLink">
                                             <div class="dropdown-header">Actions:</div>
                                             <a class="dropdown-item" href="#">Edit </a>
-                                            <a class="dropdown-item text-danger" href="#">Delete</a>
+                                            <?php if(isset($status) && $status =="Deleted"){ ?>
+                                                <a onclick="setReturnId(<?php echo $paragraph['paragraph_id'] ?>)" class="dropdown-item text-warning" data-toggle="modal"  data-target="#returnModal" href="javascript:void(0)">Return</a>       
+                                            <?php } else {?>
+                                            <a onclick="setId(<?php echo $paragraph['paragraph_id'] ?>)" class="dropdown-item text-danger" data-toggle="modal"  data-target="#deleteModal" href="javascript:void(0)">Delete</a>  
+                                            <?php } ?>     
                                             <div class="dropdown-divider"></div>
                                             <span class="badge rounded-pill bg-<?php echo $bg ?> ml-4 text-gray-100"><?php echo $status; ?></span> 
                                         </div>
@@ -152,6 +196,51 @@ if(isset($_POST['add_paragraph'])){
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                     <a class="btn btn-primary" href="login.html">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- delte Modal-->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Are you sure want <b class="text-danger">DELETE</b> this?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <form action="<?=$_SERVER['PHP_SELF'];?>" method="post">
+                    <input type="hidden" id="para_id" value="" name="para_id">
+                        <input type="submit" name="delete_paragraph" value="Delete" class="btn btn-danger">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- return Modal-->
+    <div class="modal fade" id="returnModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Are you sure want <b class="text-warning">RETURN</b> this?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <form action="<?=$_SERVER['PHP_SELF'];?>" method="post">
+                    <input type="hidden" id="para_id_return" value="" name="para_id">
+                        <input type="submit" name="return_paragraph" value="Return" class="btn btn-warning">
+                    </form>
                 </div>
             </div>
         </div>
