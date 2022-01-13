@@ -2,8 +2,8 @@
 Class DbConnection 
 {
     protected $host ='localhost';
-    protected $user = 'enad_root';
-    protected $password = 'enadRoot12@';
+    protected $user = 'root';
+    protected $password = '';
     protected $database = 'enad-abuzaid';
 
     public $conn = null;
