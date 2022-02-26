@@ -172,15 +172,22 @@
 				<!-- End social media-->
 				</div>
 				<div class="about-info">
-					<p><span>Hi! My name is Enad. I am a web developer </span>23 from Amman I have bachelor degree in Business Information Technology from the University of Jordan</p>
-						<p>I am a fresh graduate with the
+				<?php 
+						$about_data = $data->select('about_section_paragraphs','paragraph_status = 1');
+						foreach($about_data as $about){
+								
+				?>	
+					<p><?php echo $about['paragraph_body'];?></p>
+
+				<?php } ?>
+						<!-- <p>I am a fresh graduate with the
 							skill of learning and self development in the fields of
 							information technology,
 							especially the web field .I love
 							designing and developing
 							websites in an attractive and
-							creative way.</p>
-					<p>numquam ab doloremque accusamus totam enim cupiditate dolor optio, sed at, laborum tenetur id voluptatum sunt facere? Reprehenderit, excepturi.numquam ab doloremque accusamus totam enim cupiditate dolor optio, sed at, laborum tenetur id voluptatum sunt facere? Reprehenderit, excepturi.</p>
+							creative way.</p> -->
+					<!-- <p>numquam ab doloremque accusamus totam enim cupiditate dolor optio, sed at, laborum tenetur id voluptatum sunt facere? Reprehenderit, excepturi.numquam ab doloremque accusamus totam enim cupiditate dolor optio, sed at, laborum tenetur id voluptatum sunt facere? Reprehenderit, excepturi.</p> -->
 					<!-- <p>numquam ab doloremque accusamus totam enim cupiditate dolor optio, sed at, laborum tenetur id voluptatum sunt facere? Reprehenderit, excepturi.numquam ab doloremque accusamus totam enim cupiditate dolor optio, sed at, laborum tenetur id voluptatum sunt facere? Reprehenderit, excepturi.</p> -->
 
 					<a href="Enad_abuzaid.pdf" class="link-item btn-1 outer-shadow hover-in-shadow">Download CV</a>

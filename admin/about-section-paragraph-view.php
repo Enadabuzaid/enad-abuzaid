@@ -16,13 +16,6 @@ function setReturnId(id){
 
 }
 
-function setIdBodyEdit(id){
-    // document.querySelector("#id").innerHTML = id;
-   document.getElementById("para_id_edit").value = id;
-    // document.getElementById("para_body_edit").value = body;
-
-
-}
 </script>
 <?php 
 $data = new Paragraph();
@@ -42,6 +35,25 @@ if(isset($_POST['add_paragraph'])){
         header('Refresh: 3');
     }
 
+}
+
+if(isset($_POST['update_paragraph'])){
+    $paragraph_body = $_POST['paragraph_body'];
+    $paragraph_status = $_POST['paragraph_status'];
+    $paragraph_id = $_POST['para_id'];
+
+    $update_data = 
+        [
+            "paragraph_id" => $paragraph_id,
+            "paragraph_body" => $paragraph_body,
+            "paragraph_status" =>$paragraph_status
+        ];
+
+    if($data->updateData($update_data)){
+        $message = "Paragraph updated succefully !!";
+        $message_color ="success";
+        header('Refresh: 3');
+    }
 }
 
 if(isset($_POST['delete_paragraph'])){
@@ -144,7 +156,7 @@ if(isset($_POST['return_paragraph'])){
                                         <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                             aria-labelledby="dropdownMenuLink">
                                             <div class="dropdown-header">Actions:</div>
-                                            <a onclick="setIdBodyEdit(<?php echo $paragraph['paragraph_id']?>)" class="dropdown-item" data-toggle="modal"  data-target="#editModal" href="javascript:void(0)">Edit</a>  
+                                            <a  href="about-section-paragraph-edit.php?id=<?php echo $paragraph['paragraph_id'] ?>" class="dropdown-item" >Edit</a>  
                                             <?php if(isset($status) && $status =="Deleted"){ ?>
                                                 <a onclick="setReturnId(<?php echo $paragraph['paragraph_id'] ?>)" class="dropdown-item text-warning" data-toggle="modal"  data-target="#returnModal" href="javascript:void(0)">Return</a>       
                                             <?php } else {?>
@@ -253,7 +265,7 @@ if(isset($_POST['return_paragraph'])){
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <form action="<?=$_SERVER['PHP_SELF'];?>" method="post">
+                    <form action="<?php $_SERVER['PHP_SELF'];?>" method="post">
                     <input type="hidden" id="para_id_return" value="" name="para_id">
                         <input type="submit" name="return_paragraph" value="Return" class="btn btn-warning">
                     </form>
@@ -262,45 +274,6 @@ if(isset($_POST['return_paragraph'])){
         </div>
     </div>
 
-    <!-- edit Modal-->
-    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"> <b class="text-warning">EDIT</b> this Paraghraph?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="<?=$_SERVER['PHP_SELF'];?>" method="post">
-                        <div class="form-group">
-                            <input type="text"  id="para_id_edit"  value="" name="para_id">
-
-                            <textarea class="form-control"  id="para_body_edit" rows="4" name="paragraph">
-                            </textarea>
-                        </div>
-                        
-
-
-                        <div class="form-group">
-                            <select name="status">
-                                <option value="1">Choose ..</option>
-                                <option value="0">Inactive</option>
-                                <option value="1">Active</option>
-                            </select>
-                        </div>
-                    
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <input type="submit" name="update_paragraph" value="Update" class="btn btn-primary">
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
 
 
     <!-- Add  Modal-->
@@ -319,10 +292,6 @@ if(isset($_POST['return_paragraph'])){
                         <div class="form-group">
                             <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" name="paragraph"></textarea>
                         </div>
-
-                       
-                    
-                    
                 </div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>

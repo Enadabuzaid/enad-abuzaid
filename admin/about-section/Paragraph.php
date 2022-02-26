@@ -1,11 +1,8 @@
 <?php 
-
 require '../config/Db.php';
-// $database = new DbConnection;
-// $connection = $database->conn;
-
 
 Class Paragraph extends DbConnection{
+  
   public function insertData(array $data){
     $sql = "INSERT INTO `about_section_paragraphs` (`paragraph_id`,`paragraph_body`,`paragraph_status` ) 
     VALUES (NULL,'{$data['paragraph_body']}' , '{$data['paragraph_status']}')";
@@ -18,7 +15,7 @@ Class Paragraph extends DbConnection{
   }
 
   public function selectData( $where = 1){
-    $array = array();
+    // $array = array();
     $sql = "SELECT * FROM `about_section_paragraphs`"." WHERE " .$where;
     $result = $this->conn->query($sql) or die($this->conn->error);
 
@@ -27,6 +24,16 @@ Class Paragraph extends DbConnection{
       $array[] = $row;  
     }  
     return $array;  
+  }
+
+  public function updateData(array $data) {
+    $sql = "UPDATE `about_section_paragraphs` SET paragraph_body='{$data['paragraph_body']}' , paragraph_status='{$data['paragraph_status']}' WHERE paragraph_id='{$data['paragraph_id']}'";
+
+    if($this->conn->query($sql)){
+      return true;
+    } else {
+      return "error ". $this->conn->error;
+    }
   }
 
 

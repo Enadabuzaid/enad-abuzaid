@@ -46,6 +46,7 @@ body{
 body.stop-scrolling{
 	overflow-y: hidden;
 }
+
 *:not(i){
 	font-family: 'Raleway', sans-serif;
 	font-weight: 400;
