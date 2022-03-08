@@ -59,7 +59,7 @@ class Project extends DbConnection
         }
     }
 
-    public  function  selectDetailsOfProject(){
+    public function selectDetailsOfProject(){
         $sql = "SELECT * FROM `project_details` INNER JOIN projects ON project_details.project_id = projects.project_id";
 
         $result = $this->conn->query($sql) or die($this->conn->error);
@@ -69,5 +69,16 @@ class Project extends DbConnection
             $array[] = $row;
         }
         return $array;
+    }
+
+
+    public function trashedProjectType($project_id){
+        $sql = "UPDATE `project_type` SET project_type_status='2' WHERE project_type_id=$project_id";
+
+        if($this->conn->query($sql)){
+            return true;
+        } else {
+            return "error ". $this->conn->error;
+        }
     }
 }

@@ -7,7 +7,7 @@ $projects_detals = $data->selectDetailsOfProject();
 print_r($projects_detals);
 
 
-$title= "Project detals | Data table";
+$title= "Project details | Data table";
 $root = '../';
 $header_path = $root."admin-includes/header.php";
 $sidebar_path = $root."admin-includes/sidebar.php";
@@ -59,8 +59,14 @@ $footer_path = $root."admin-includes/footer.php";
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>project type name</th>
-                                    <th>project type target</th>
+                                    <th>project name</th>
+                                    <th>project brief</th>
+                                    <th>project date</th>
+                                    <th>project client</th>
+                                    <th>project tools</th>
+                                    <th>project demo</th>
+                                    <th>project code</th>
+                                    <th>project screenshoot</th>
                                     <th>status</th>
                                     <th>action</th>
                                 </tr>
@@ -72,17 +78,17 @@ $footer_path = $root."admin-includes/footer.php";
                                     ?>
                                     <tr>
                                         <td><?php echo $i++; ?></td>
+                                        <td><?php echo $projects_detal['project_title'];?> </td>
+                                        <td><?php echo $projects_detal['project_brief'];?></td>
+                                        <td><?php echo $projects_detal['date'];?></td>
+                                        <td><?php echo $projects_detal['client'];?></td>
+                                        <td><?php echo $projects_detal['tools'];?></td>
+                                        <td><?php echo $projects_detal['demo'];?></td>
+                                        <td><?php echo $projects_detal['code'];?></td>
+                                        <td><?php echo $projects_detal['screenshot_link'];?></td>
                                         <td>
-
-                                                <?php echo $projects_detal['project_type_name'];?>
-
-                                        </td>
-                                        <td><?php echo $projects_detal['project_target'];?></td>
-
-
-                                        <td >
                                             <?php
-                                            if($projects_detal['project_type_status'] == 1) {
+                                            if($projects_detal['project_details_status'] == 1) {
                                                 $class="success"; $status="Active";
                                             }else {
                                                 $class="danger"; $status="Deactive";
@@ -91,21 +97,10 @@ $footer_path = $root."admin-includes/footer.php";
                                             <span class="badge rounded-pill bg-<?php echo $class;?>  text-gray-100"><?php echo $status;?></span>
                                         </td>
                                         <td>
-                                            <a href="#" class="btn-sm btn-primary btn-icon-split link">
-                                                <span class="icon text-white-50">
-                                                    <i class="far fa-edit"></i>
-                                                </span>
-                                                <span class="text">Edit</span>
-                                            </a>
-
-                                            <a href="#" class="btn-sm btn-warning btn-icon-split">
-                                                <span class="icon text-white-50">
-                                                    <i class="fas fa-exclamation-triangle"></i>
-                                                </span>
-                                                <span class="text">Trash</span>
-                                            </a>
-
-
+                                            <form action="project_details.php" method="post" id="details_form" style="display: inline;">
+                                                <input type="hidden" value="<?php echo $projects_detal['project_id'] ?>" name="project_id">
+                                                <input type="submit" class="btn btn-primary btn-icon-split" value="details">
+                                            </form>
 
                                         </td>
                                     </tr>

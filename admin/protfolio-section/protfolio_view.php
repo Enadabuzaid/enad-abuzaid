@@ -77,7 +77,9 @@ $footer_path = $root."admin-includes/footer.php";
                                             <?php
                                             if($project['project_status'] == 1) {
                                                 $class="success"; $status="Active";
-                                            }else {
+                                            } elseif ($project['project_status'] == 2){
+                                                $class="warning"; $status="Trashed";
+                                            } else {
                                                 $class="danger"; $status="Deactive";
                                             }
                                             ?>
@@ -88,37 +90,10 @@ $footer_path = $root."admin-includes/footer.php";
 
                                         <td>
 
-                                                <a href="#" class="btn-sm btn-primary btn-icon-split link">
-                                                <span class="icon text-white-50">
-                                                    <i class="far fa-edit"></i>
-                                                </span>
-                                                    <span class="text">Edit</span>
-                                                </a>
-
-
-
-
-                                            <button href="#" class="btn-sm btn-warning btn-icon-split">
-                                                <span class="icon text-white-50">
-                                                    <i class="fas fa-exclamation-triangle"></i>
-                                                </span>
-                                                <span class="text">Trash</span>
-                                            </button>
-
                                             <form action="project_details.php" method="post" id="details_form" style="display: inline;">
                                                 <input type="hidden" value="<?php echo $project['project_id'] ?>" name="project_id">
-                                                <input type="submit" class="btn btn-success btn-icon-split text-dark" value="details">
+                                                <input type="submit" class="btn btn-primary btn-icon-split" value="details">
                                             </form>
-
-
-
-
-
-
-
-
-
-
 
 
                                         </td>
