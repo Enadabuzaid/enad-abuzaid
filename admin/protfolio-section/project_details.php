@@ -1,5 +1,13 @@
 <?php
 require './Project.php';
+
+
+$data = new Project();
+$projects_detals = $data->selectDetailsOfProject();
+print_r($projects_detals);
+
+
+$title= "Project detals | Data table";
 $root = '../';
 $header_path = $root."admin-includes/header.php";
 $sidebar_path = $root."admin-includes/sidebar.php";
@@ -30,28 +38,29 @@ $footer_path = $root."admin-includes/footer.php";
             <div class="container-fluid">
                 <?php
 
-                    $data = new Project();
-                    $projects_with_type = $data->selctProjectWithType();
+                if(isset($_GET['message'])){
 
-                    print_r($projects_with_type);
-
-
-
-                ?>
+                    ?>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>No Projects here in this type </strong> let's make project in this field .
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <?php } ?>
 
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                        <h6 class="m-0 font-weight-bold text-primary"><?php echo $title; ?></h6>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>project title</th>
-                                    <th>project type</th>
-                                    <th>project cover</th>
+                                    <th>project type name</th>
+                                    <th>project type target</th>
                                     <th>status</th>
                                     <th>action</th>
                                 </tr>
@@ -59,23 +68,21 @@ $footer_path = $root."admin-includes/footer.php";
                                 <tbody class="text-center">
                                 <?php
                                 $i=1;
-                                foreach($projects_with_type as $project){
+                                foreach($projects_detals as $projects_detal){
                                     ?>
-
                                     <tr>
                                         <td><?php echo $i++; ?></td>
-                                        <td><?php echo $project['project_title'];?></td>
                                         <td>
-                                            <a href="<?php echo  "project_by_type.php?type_id=".$project['project_type_id']?>">
-                                                <?php echo $project['project_type_name'];?>
-                                            </a>
-                                        </td>
 
-                                        <td style="width: 150px;height=150px"><img height="100%" width="100%" src="<?php echo 'http://localhost/enad-abuzaid/img/'.$project['project_cover'];?>"  alt="<?php echo $project['project_cover'];?>"></td>
+                                                <?php echo $projects_detal['project_type_name'];?>
+
+                                        </td>
+                                        <td><?php echo $projects_detal['project_target'];?></td>
+
 
                                         <td >
                                             <?php
-                                            if($project['project_status'] == 1) {
+                                            if($projects_detal['project_type_status'] == 1) {
                                                 $class="success"; $status="Active";
                                             }else {
                                                 $class="danger"; $status="Deactive";
@@ -83,41 +90,20 @@ $footer_path = $root."admin-includes/footer.php";
                                             ?>
                                             <span class="badge rounded-pill bg-<?php echo $class;?>  text-gray-100"><?php echo $status;?></span>
                                         </td>
-
-
-
                                         <td>
-
-                                                <a href="#" class="btn-sm btn-primary btn-icon-split link">
+                                            <a href="#" class="btn-sm btn-primary btn-icon-split link">
                                                 <span class="icon text-white-50">
                                                     <i class="far fa-edit"></i>
                                                 </span>
-                                                    <span class="text">Edit</span>
-                                                </a>
+                                                <span class="text">Edit</span>
+                                            </a>
 
-
-
-
-                                            <button href="#" class="btn-sm btn-warning btn-icon-split">
+                                            <a href="#" class="btn-sm btn-warning btn-icon-split">
                                                 <span class="icon text-white-50">
                                                     <i class="fas fa-exclamation-triangle"></i>
                                                 </span>
                                                 <span class="text">Trash</span>
-                                            </button>
-
-                                            <form action="project_details.php" method="post" id="details_form" style="display: inline;">
-                                                <input type="hidden" value="<?php echo $project['project_id'] ?>" name="project_id">
-                                                <input type="submit" class="btn btn-success btn-icon-split text-dark" value="details">
-                                            </form>
-
-
-
-
-
-
-
-
-
+                                            </a>
 
 
 

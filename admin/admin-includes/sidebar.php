@@ -87,8 +87,10 @@
         <div id="prot" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">projects :</h6>
-                <a class="collapse-item" href="<?php echo PORT_PATH ?>project_type_view.php">Project Type</a>
                 <a class="collapse-item" href="<?php echo PORT_PATH ?>protfolio_view.php">Project</a>
+                <a class="collapse-item" href="<?php echo PORT_PATH ?>project_type_view.php">Project Type</a>
+                <a class="collapse-item" href="<?php echo PORT_PATH ?>project_details.php">Project Details</a>
+
             </div>
         </div>
     </li>

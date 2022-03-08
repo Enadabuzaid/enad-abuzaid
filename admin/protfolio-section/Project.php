@@ -58,4 +58,16 @@ class Project extends DbConnection
             header("Location: project_type_view.php?message");
         }
     }
+
+    public  function  selectDetailsOfProject(){
+        $sql = "SELECT * FROM `project_details` INNER JOIN projects ON project_details.project_id = projects.project_id";
+
+        $result = $this->conn->query($sql) or die($this->conn->error);
+
+        while($row = $result->fetch_assoc())
+        {
+            $array[] = $row;
+        }
+        return $array;
+    }
 }
