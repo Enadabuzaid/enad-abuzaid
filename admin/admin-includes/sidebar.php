@@ -76,11 +76,30 @@
     </div>
 </li>
 
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#prot"
+           aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-project-diagram"></i>
+            <span> Protofolio </span>
+        </a>
+        <div id="prot" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">projects :</h6>
+                <a class="collapse-item" href="<?php echo PORT_PATH ?>project_type_view.php">Project Type</a>
+                <a class="collapse-item" href="<?php echo PORT_PATH ?>protfolio_view.php">Project</a>
+            </div>
+        </div>
+    </li>
+
 <!-- Nav Item - Utilities Collapse Menu -->
 <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
         aria-expanded="true" aria-controls="collapseUtilities">
         <i class="fas fa-fw fa-wrench"></i>
+
+
         <span>Utilities</span>
     </a>
     <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"

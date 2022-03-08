@@ -3,6 +3,9 @@
 <?php
     define('AD_PATH' , "http://localhost/enad-abuzaid/admin/");
     define('SR_PATH' , "http://localhost/enad-abuzaid/admin/services-section/"); // service section
+    define('PORT_PATH' , "http://localhost/enad-abuzaid/admin/protfolio-section/"); // protofolio section
+    define('PROJECT_PATH' , "http://localhost/enad-abuzaid/admin/"); // protofolio section
+
 
 
 ?>
