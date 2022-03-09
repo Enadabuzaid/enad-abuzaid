@@ -33,12 +33,176 @@ $footer_path = $root."admin-includes/footer.php";
                     $data = new Project();
                     $projects_with_type = $data->selctProjectWithType();
 
-                    print_r($projects_with_type);
 
+                if (isset($_POST['add_paragraph'])){
+                    $id = rand(10,1000);
+                    $inputs = [
+                            'project_id' => $id,
+                            'project_title' => $_POST['project_title'],
+                            'project_cover' => $_POST['project_cover'],
+                            'project_type' => $_POST['project_type'],
+                            'project_status' => $_POST['project_status'],
+                            'project_date' => $_POST['project_date'],
+                            'project_client' => $_POST['project_client'],
+                            'project_code' => $_POST['project_code'],
+                            'project_tool' => $_POST['project_tool'],
+                        'project_demo' => $_POST['project_demo'],
+                            'project_screen' => $_POST['project_screen'],
+                            'project_breif'=>"test"
+                    ];
+
+                    $data->insertProject($inputs);
+//                    print_r($inputs);
+                }
 
 
                 ?>
+                <a href="#" class="btn-sm btn-primary btn-icon-split mb-4 text-right" data-toggle="modal" data-target="#addModal">
+                        <span class="icon text-white-50">
+                        <i class="fas fa-plus"></i>
+                        </span>
+                    <span class="text">Add Paragraph</span>
+                </a>
 
+                <!-- Add  Modal-->
+                <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Add Project</h5>
+                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="<?=$_SERVER['PHP_SELF'];?>" method="post">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label class="text-primary" for="project_title">project title</label>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control form-control-user"
+                                                       id="project_title" name="project_title" required
+                                                       placeholder="Enter project name">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <label class="text-primary" for="project_cover">project cover</label>
+                                            <div class="form-group">
+                                                <input type="file" class="form-control form-control-user"
+                                                       id="project_cover" name="project_cover" required
+                                                       placeholder="Enter Email Address...">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col">
+                                            <?php
+                                                $project_type = new Project();
+                                                $types = $project_type->selectProjectType();
+
+
+                                            ?>
+                                            <label class="text-primary" for="inputState">project type</label>
+                                            <div class="form-group">
+                                                <select id="inputState" class="form-control" name="project_type">
+                                                    <option selected>Choose...</option>
+                                                    <?php foreach ($types as $type) { ?>
+                                                    <option value="<?php echo $type['project_type_id']?>"><?php echo $type['project_type_name'] ?></option>
+                                                    <?php } ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <label class="text-primary" for="status">project status</label>
+                                            <div class="form-group">
+                                                <select id="status" class="form-control" name="project_status">
+                                                    <option selected>Choose...</option>
+                                                    <option value="1">Active</option>
+                                                    <option value="0">Deactive</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col">
+                                            <label class="text-primary" for="project_breif">project Brief</label>
+                                            <div class="form-group">
+                                                <textarea class="form-control" name="project_breif" id="project_breif" rows="3"></textarea>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col">
+                                            <label class="text-primary" for="project_date">project date</label>
+                                            <div class="form-group">
+                                                <input type="date" class="form-control form-control-user"
+                                                       id="project_date" name="project_date"
+                                                       placeholder="Enter date for project...">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <label class="text-primary" for="project_client">project client</label>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control form-control-user"
+                                                       id="project_client" name="project_client"
+                                                       placeholder="Enter who is the client..">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col">
+                                            <label class="text-primary" for="project_tool">project tools</label>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control form-control-user"
+                                                       id="project_tool" name="project_tool"
+                                                       placeholder="Enter tools for project..">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <label class="text-primary" for="project_demo">project demo link</label>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control form-control-user"
+                                                       id="project_demo" name="project_demo"
+                                                       placeholder="Enter demo link...">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col">
+                                            <label class="text-primary" for="project_code">project code link</label>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control form-control-user"
+                                                       id="project_code" name="project_code"
+                                                       placeholder="Enter code link...">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <label class="text-primary" for="project_screen">project screenshot link</label>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control form-control-user"
+                                                       id="project_screen" name="project_screen"
+                                                       placeholder="Enter screenshot link...">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                            </div>
+
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                <button class="btn btn-primary" name="add_paragraph">Add Paragraph</button>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>

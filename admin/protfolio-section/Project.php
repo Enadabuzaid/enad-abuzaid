@@ -81,4 +81,22 @@ class Project extends DbConnection
             return "error ". $this->conn->error;
         }
     }
+
+    public function insertProject(array $data){
+        $sql = "INSERT INTO `projects` (`project_id`,`project_title`,`project_cover` , `project_type`, `project_status` ) 
+        VALUES ('{$data['project_id']}' ,'{$data['project_title']}' , '{$data['project_cover']}' , '{$data['project_type']}' , '{$data['project_status']}')";
+
+        $sql2 = "INSERT INTO `project_details` (`project_details_id`, `project_id`, `project_brief`, `date`, `client`, `tools`, `demo`, `code`, `screenshot_link`, `project_details_status`) 
+        VALUES (NULL ,'{$data['project_id']}' , '{$data['project_breif']}' , '{$data['project_date']}'
+        , '{$data['project_client']}' , '{$data['project_tool']}' , '{$data['project_demo']}' , '{$data['project_code']}' , '{$data['project_screen']}' , '1')";
+
+
+        if($this->conn->query($sql) && $this->conn->query($sql2)){
+
+            return true;
+        } else {
+            return "error ". $this->conn->error;
+        }
+    }
+
 }
