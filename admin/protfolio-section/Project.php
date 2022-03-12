@@ -13,7 +13,12 @@ class Project extends DbConnection
         {
             $array[] = $row;
         }
-        return $array;
+
+        if (!empty($array)) {
+            return $array;
+        } else{
+            return "empty";
+        }
     }
 
 
@@ -94,6 +99,16 @@ class Project extends DbConnection
 
     public function returnProject($project_id){
         $sql = "UPDATE `projects` SET project_status='1' WHERE project_id=$project_id";
+
+        if($this->conn->query($sql)){
+            return true;
+        } else {
+            return "error ". $this->conn->error;
+        }
+    }
+
+    public function deleteProject($project_id){
+        $sql = "DELETE FROM `projects` WHERE project_id=$project_id";
 
         if($this->conn->query($sql)){
             return true;

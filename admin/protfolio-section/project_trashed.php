@@ -6,6 +6,8 @@ $data = new Project();
 $projects_trashed = $data->selectData("project_status = 2");
 
 
+
+
 $title= "Trashed Projects | Data table";
 $root = '../';
 $header_path = $root."admin-includes/header.php";
@@ -66,6 +68,8 @@ $footer_path = $root."admin-includes/footer.php";
                                 <tbody class="text-center">
                                 <?php
                                 $i=1;
+
+                                if($projects_trashed != "empty"){
                                 foreach($projects_trashed as $trash){
                                     ?>
                                     <tr>
@@ -104,14 +108,17 @@ $footer_path = $root."admin-includes/footer.php";
                                                                 <span aria-hidden="true">×</span>
                                                             </button>
                                                         </div>
+                                                        <div class="row" style="gap: 0.2rem;margin: 0 0.3rem;">
                                                             <span class="text-danger">*</span>
                                                             <strong class="text-gray-600">Be careful !!</strong>
-                                                        <p class="text-gray-300">when click on delete button the project delete forever </p>
+                                                            <p class="text-gray-500">when click on delete button the project delete forever </p>
+                                                        </div>
+
                                                         <div class="modal-footer">
                                                             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                                                             <form action="protfolio_view.php" method="post">
                                                                 <input type="hidden" id="" value="<?php echo $trash['project_id'] ?>" name="project_id">
-                                                                <input type="submit" name="deletegit_project" value="delete" class="btn btn-info">
+                                                                <input type="submit" name="delete_project" value="delete" class="btn btn-danger">
                                                             </form>
                                                         </div>
                                                     </div>
@@ -144,7 +151,9 @@ $footer_path = $root."admin-includes/footer.php";
 
                                         </td>
                                     </tr>
-                                <?php }?>
+                                <?php
+                                    }
+                                }?>
                                 </tbody>
                             </table>
                         </div>

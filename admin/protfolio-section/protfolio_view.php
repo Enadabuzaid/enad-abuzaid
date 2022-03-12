@@ -34,7 +34,7 @@ $footer_path = $root."admin-includes/footer.php";
                     $projects_with_type = $data->selctProjectWithType();
 
 
-                if (isset($_POST['add_paragraph'])){
+                if (isset($_POST['add_project'])){
                     $id = rand(10,1000);
                     $inputs = [
                             'project_id' => $id,
@@ -46,7 +46,7 @@ $footer_path = $root."admin-includes/footer.php";
                             'project_client' => $_POST['project_client'],
                             'project_code' => $_POST['project_code'],
                             'project_tool' => $_POST['project_tool'],
-                        'project_demo' => $_POST['project_demo'],
+                            'project_demo' => $_POST['project_demo'],
                             'project_screen' => $_POST['project_screen'],
                             'project_breif'=>"test"
                     ];
@@ -57,7 +57,7 @@ $footer_path = $root."admin-includes/footer.php";
 
 
 //                TRASH PROJECT PROCESS
-                if(isset($_POST['delete_project'])){
+                if(isset($_POST['trash_project'])){
                     $project_id = $_POST['project_id'];
 
                     if($data->trashedProject($project_id)){
@@ -75,13 +75,22 @@ $footer_path = $root."admin-includes/footer.php";
                     }
                 }
 
+//                DELETE PROJECT PROCESS
+                if (isset($_POST['delete_project'])){
+                    $project_id = $_POST['project_id'];
+                    if($data->deleteProject($project_id)){
+                        $message = "Project deleted  successfully !!";
+                        $message_color ="danger";
+                    }
+                }
+
 
                 ?>
                 <a href="#" class="btn-sm btn-primary btn-icon-split mb-4 text-right" data-toggle="modal" data-target="#addModal">
                         <span class="icon text-white-50">
                         <i class="fas fa-plus"></i>
                         </span>
-                    <span class="text">Add Paragraph</span>
+                    <span class="text">Add Project</span>
                 </a>
 
                 <!-- Add  Modal-->
@@ -215,7 +224,7 @@ $footer_path = $root."admin-includes/footer.php";
 
                             <div class="modal-footer">
                                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                                <button class="btn btn-primary" name="add_paragraph">Add Paragraph</button>
+                                <button class="btn btn-primary" name="add_project">Add Project</button>
                             </div>
                             </form>
                         </div>
@@ -327,7 +336,7 @@ $footer_path = $root."admin-includes/footer.php";
                                                             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                                                             <form action="<?=$_SERVER['PHP_SELF'];?>" method="post">
                                                                 <input type="hidden" id="" value="<?php echo $project['project_id'] ?>" name="project_id">
-                                                                <input type="submit" name="delete_project" value="Trash" class="btn btn-warning">
+                                                                <input type="submit" name="trash_project" value="Trash" class="btn btn-warning">
                                                             </form>
                                                         </div>
                                                     </div>
