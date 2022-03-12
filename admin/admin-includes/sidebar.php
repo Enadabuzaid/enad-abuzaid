@@ -90,6 +90,8 @@
                 <a class="collapse-item" href="<?php echo PORT_PATH ?>protfolio_view.php">Project</a>
                 <a class="collapse-item" href="<?php echo PORT_PATH ?>project_type_view.php">Project Type</a>
                 <a class="collapse-item" href="<?php echo PORT_PATH ?>project_details.php">Project Details</a>
+                <a class="collapse-item" href="<?php echo PORT_PATH ?>project_trashed.php">Trashed Project</a>
+
 
             </div>
         </div>

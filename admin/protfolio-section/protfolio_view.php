@@ -56,13 +56,22 @@ $footer_path = $root."admin-includes/footer.php";
                 }
 
 
-//                DELETE PROJECT PROCESS
+//                TRASH PROJECT PROCESS
                 if(isset($_POST['delete_project'])){
                     $project_id = $_POST['project_id'];
 
                     if($data->trashedProject($project_id)){
                         $message = "Project trashed successfully !!";
                         $message_color ="warning";
+                    }
+                }
+
+//                RETURN PROJECT PROCESS
+                if (isset($_POST['return_project'])){
+                    $project_id = $_POST['project_id'];
+                    if($data->returnProject($project_id)){
+                        $message = "Project returned  successfully !!";
+                        $message_color ="info";
                     }
                 }
 
