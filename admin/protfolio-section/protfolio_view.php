@@ -33,13 +33,20 @@ $footer_path = $root."admin-includes/footer.php";
                     $data = new Project();
                     $projects_with_type = $data->selctProjectWithType();
 
-
+//              ADD PROJECT PROCESS
                 if (isset($_POST['add_project'])){
                     $id = rand(10,1000);
+
+                    $filename = $_FILES["project_cover"]["name"];
+                    $tempname = $_FILES["project_cover"]["tmp_name"];
+                    $folder = "/var/www/html/enad-abuzaid/img/projects/covers/".$filename;
+
+                    move_uploaded_file($tempname, $folder);
+
                     $inputs = [
                             'project_id' => $id,
                             'project_title' => $_POST['project_title'],
-                            'project_cover' => $_POST['project_cover'],
+                            'project_cover' => "projects/covers/".$filename,
                             'project_type' => $_POST['project_type'],
                             'project_status' => $_POST['project_status'],
                             'project_date' => $_POST['project_date'],
@@ -50,6 +57,7 @@ $footer_path = $root."admin-includes/footer.php";
                             'project_screen' => $_POST['project_screen'],
                             'project_breif'=>"test"
                     ];
+
 
                     $data->insertProject($inputs);
 
@@ -105,7 +113,7 @@ $footer_path = $root."admin-includes/footer.php";
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form action="<?=$_SERVER['PHP_SELF'];?>" method="post">
+                                <form action="<?=$_SERVER['PHP_SELF'];?>" method="post" enctype="multipart/form-data">
                                     <div class="row">
                                         <div class="col">
                                             <label class="text-primary" for="project_title">project title</label>

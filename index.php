@@ -377,14 +377,15 @@
 										foreach($project_photos as $project_photo){	
 											array_push($photo,$project_photo['photo']);
 										}
-										
+
+                                       print_r($photo);
 										
 								?>
 									<img src="img/<?php echo $project['project_cover'];?>" alt="pro1" data-screenshots="
-										<?php 
+										<?php
 											echo 'img/'.$project['project_cover'].',';
 											for($i=0; $i < count($photo) - 1; $i++){
-												echo $img = "img/".$photo[$i].",";
+												echo "img/".$photo[$i].",";
 											}
 											echo 'img/'.end($photo);
 										?>
@@ -398,9 +399,9 @@
 
 												<!-- start portfolio  details-->
 														<div class="portfolio-item-details">
-														<?php 
+														<?php
 																$project_details = $data->select('project_details',"project_details_status = 1 AND project_id = $project_id");
-																foreach($project_details as $project_detail){		
+																foreach($project_details as $project_detail){
 															?>
 															<div class="row">
 																<div class="description">
@@ -421,366 +422,64 @@
 															</div>
 															<?php } ?>
 														</div>
-													<!-- end portfolio  details-->
+                                                <!-- end portfolio  details-->
 											
 							</div>
 						</div>
 					<!-- end portfolio  item-->
 
-						
+                    <!-- start protfolio popup-->
+                            <div class="pp portfolio-popup">
+                                <div class="pp-details">
+                                    <div class="pp-details-inner">
+                                        <div class="pp-title">
+                                            <h2></h2>
+                                            <p>Category - <span class="pp-project-category"><?php echo $project_type2['project_target']; ?></span></p>
+                                        </div>
+                                        <div class="pp-project-details">
+                                            <div class="row">
+                                                <div class="description">
+                                                    <h3>Project Brief</h3>
+                                                    <p><span><a href="#"></a></span></p>
+                                                </div>
+                                                <div class="info">
+                                                    <h3>Project info</h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="separator"></div>
+                                <div class="pp-main">
+                                    <div class="pp-main-inner">
+                                        <div class="pp-project-details-btn outer-shadow hover-in-shadow">Project Details <i class="fas fa-plus"></i></div>
+                                        <div class="pp-close outer-shadow hover-in-shadow">&times;</div>
+                                        <img class="pp-img outer-shadow" src="img/1.png" alt="img">
+                                        <div class="pp-counter"></div>
+                                    </div>
+                                    <div class="pp-loader">
+                                        <div></div>
+                                    </div>
+                                    <!--  popup navigation-->
+                                    <div class="pp-prev"><i class="fas fa-play"></i></div>
+                                    <div class="pp-next"><i class="fas fa-play"></i></div>
+                                    <!--  end popup navigation-->
+                                </div>
+                            </div>
+                            <!-- end protfolio popup-->
 
 				<?php } ?>
-						<!-- start portfolio  item-->
-							<div class="portfolio-item" data-category="web-application">
-								<div class="portfolio-item-inner outer-shadow">
-									<div class="portfolio-item-img">
-										<img src="img/incouces/cover.png" alt="pro1" data-screenshots="
-										img/incouces/1.png,
-										img/incouces/2.png,
-										img/incouces/3.png,
-										img/incouces/8.png,
-										img/incouces/5.png,
-										img/incouces/6.png,">
-										<!-- here the ( , ) for loading -->
-										<!-- view project btn-->
-										<span class="view-project">view project</span>
-									</div>
-									<p class="portfolio-item-title">Invoices Project</p>
-									<!-- start portfolio  details-->
-										<div class="portfolio-item-details">
-											<div class="row">
-												<div class="description">
-													<h3>Project Brief</h3>
-													<p>
-														<ul>
-															<li>section (CRUD)</li>
-															<li>product belong to section (CRUD)</li>
-															<li>reports ( search number of invoice or date )</li>
-															<li>users ( permissions and roles )</li>
-															<li>email notification .</li>
-															<li>real notification using db</li>
-															<li>
-																inovies :
-																<ul>
-																	<li> - CRUD , archive , analysis , attachment</li>
-																	<li> - attachment (CRUD)</li>
-																	<li> - invoice status</li>
-																</ul>
-															</li>
-														</ul>
-														</p>
-												</div>
-												<div class="info">
-													<h3>Project info</h3>
-														<ul>
-															<li>Date - <span>2020</span></li>
-															<li>Clinet - <span>none - just for learning</span></li>
-															<li>Tools - <span>Laravel</span></li>
-															<li>web - <span><a href="https://github.com/Enadabuzaid/Invocies-project.git" target="_blank">https://github.com/Enadabuzaid/Invocies-project.gi</a></span></li>
-															<li>more secreenShots - <span><a href="https://bit.ly/3uW8F9s" target="_blank">https://bit.ly/3uW8F9s</a></span></li>
-														</ul>
-												</div>
-											</div>
-										</div>
-									<!-- end portfolio  details-->
-								</div>
-							</div>
-						<!-- end portfolio  item-->
-						<!-- start portfolio  item-->
-							<div class="portfolio-item" data-category="web-application">
-								<div class="portfolio-item-inner outer-shadow">
-									<div class="portfolio-item-img">
-										<img src="img//s-1/cover.png" alt="pro1" data-screenshots="
-										img/s-1/1.png,
-										img/s-1/2.png,
-										img/s-1/3.png,
-										img/s-1/4.png,
-										img/s-1/5.png">
-										<!-- view project btn-->
-										<span class="view-project">view project</span>
-									</div>
-									<p class="portfolio-item-title">Sandni app web</p>
-									<!-- start portfolio  details-->
-										<div class="portfolio-item-details">
-											<div class="row">
-												<div class="description">
-													<h3>Project Brief</h3>
-													<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, earum officia numquam ab doloremque Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, earum officia numquam ab doloremque </p>
-												</div>
-												<div class="info">
-													<h3>Project info</h3>
-														<ul>
-															<li>Date - <span>2020</span></li>
-															<li>Clinen - <span>xyz</span></li>
-															<li>Tools - <span>html,css,js</span></li>
-															<li>web - <span><a href="www.domian.com"></a></span></li>
-														</ul>
-												</div>
-											</div>
-										</div>
-									<!-- end portfolio  details-->
-								</div>
-							</div>
-						<!-- end portfolio  item-->
-						<!-- start portfolio  item-->
-							<div class="portfolio-item" data-category="web-application">
-								<div class="portfolio-item-inner outer-shadow">
-									<div class="portfolio-item-img">
-										<img src="img/s-2/cover.png" alt="pro1" data-screenshots="
-										img/s-2/1.png,
-										img/s-2/14.png,
-										img/s-2/12.png,
-										img/s-2/5.png,
-										img/s-2/10.png,
-										img/s-2/11.png,
-										img/s-2/12.png">
-										<!-- view project btn-->
-										<span class="view-project">view project</span>
-									</div>
-									<p class="portfolio-item-title">Sandni app V2</p>
-									<!-- start portfolio  details-->
-										<div class="portfolio-item-details">
-											<div class="row">
-												<div class="description">
-													<h3>Project Brief</h3>
-													<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, earum officia numquam ab doloremque Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, earum officia numquam ab doloremque </p>
-												</div>
-												<div class="info">
-													<h3>Project info</h3>
-														<ul>
-															<li>Date - <span>2020</span></li>
-															<li>Clinen - <span>xyz</span></li>
-															<li>Tools - <span>html,css,js</span></li>
-															<li>web - <span><a href="www.domian.com"></a></span></li>
-														</ul>
-												</div>
-											</div>
-										</div>
-									<!-- end portfolio  details-->
-								</div>
-							</div>
-						<!-- end portfolio  item-->
-						<!-- start portfolio  item-->
-							<div class="portfolio-item" data-category="web-application">
-								<div class="portfolio-item-inner outer-shadow">
-									<div class="portfolio-item-img">
-										<img src="img/e-comm/cover.png" alt="pro1" data-screenshots="
-															img/e-comm/1.png,
-															img/e-comm/2.png,
-															img/e-comm/3.png,
-															img/e-comm/4.png,
-															img/e-comm/5.png">
-															<!-- view project btn-->
-										<span class="view-project">view project</span>
-									</div>
-									<p class="portfolio-item-title">Simi E-commerce</p>
-														<!-- start portfolio  details-->
-															<div class="portfolio-item-details">
-																<div class="row">
-																	<div class="description">
-																		<h3>Project Brief</h3>
-																		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, earum officia numquam ab doloremque Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, earum officia numquam ab doloremque </p>
-																	</div>
-																	<div class="info">
-																		<h3>Project info</h3>
-																			<ul>
-																				<li>Date - <span>2020</span></li>
-																				<li>Client - <span>xyz</span></li>
-																				<li>Tools - <span>html,css,js</span></li>
-																				<li>web - <span><a href="www.domian.com"></a></span></li>
-																			</ul>
-																	</div>
-																</div>
-															</div>
-								<!-- end portfolio  details-->
-								</div>
-							</div>
-						<!-- end portfolio  item-->
-						<!-- start portfolio  item-->
-						<div class="portfolio-item" data-category="web-design">
-							<div class="portfolio-item-inner outer-shadow">
-								<div class="portfolio-item-img">
-									<img src="img/web-design/1/1.png" alt="pro1" data-screenshots="
-														img/web-design/1/1.png,
-														img/web-design/1/2.png,
-														img/web-design/1/3.png,
-														img/web-design/1/4.png,
-														img/web-design/1/5.png,
-														img/web-design/1/6.png">
-														<!-- view project btn-->
-									<span class="view-project">view project</span>
-								</div>
-								<p class="portfolio-item-title">Digital web</p>
-													<!-- start portfolio  details-->
-														<div class="portfolio-item-details">
-															<div class="row">
-																<div class="description">
-																	<h3>Project Brief</h3>
-																	<p>Responsive website Just for learning and practice in web design so this website not real  </p>
-																</div>
-																<div class="info">
-																	<h3>Project info</h3>
-																		<ul>
-																			<li>Date - <span>2021</span></li>
-																			<li>Clinen - <span>none - just for practice</span></li>
-																			<li>Tools - <span>html,css</span></li>
-																			<li>web - <span><a href="https://enadabuzaid.github.io/firstWeb/" target="_blank">visit</a></span></li>
-																			<li>code - <span><a href="https://github.com/Enadabuzaid/firstWeb" target="_blank">https://github.com/Enadabuzaid/firstWeb</a></span></li>
-																		</ul>
-																</div>
-															</div>
-														</div>
-							<!-- end portfolio  details-->
-							</div>
-						</div>
-					<!-- end portfolio  item-->
-					<!-- start portfolio  item-->
-					<div class="portfolio-item" data-category="web-design">
-						<div class="portfolio-item-inner outer-shadow">
-							<div class="portfolio-item-img">
-								<img src="img/web-design/2/1.png" alt="pro1" data-screenshots="img/web-design/2/1.png">
-													<!-- view project btn-->
-								<span class="view-project">view project</span>
-							</div>
-							<p class="portfolio-item-title">Digital web</p>
-												<!-- start portfolio  details-->
-													<!-- <div class="portfolio-item-details">
-														<div class="row">
-															<div class="description">
-																<h3>Project Brief</h3>
-																<p>Responsive website Just for learning and practice in web design so this website not real  </p>
-															</div>
-															<div class="info">
-																<h3>Project info</h3>
-																	<ul>
-																		<li>Date - <span>2021</span></li>
-																		<li>Clinen - <span>none - just for practice</span></li>
-																		<li>Tools - <span>html,css</span></li>
-																		<li>web - <span><a href="https://enadabuzaid.github.io/firstWeb/" target="_blank">visit</a></span></li>
-																		<li>code - <span><a href="https://github.com/Enadabuzaid/firstWeb" target="_blank">https://github.com/Enadabuzaid/firstWeb</a></span></li>
-																	</ul>
-															</div>
-														</div>
-													</div> -->
-						<!-- end portfolio  details-->
-						</div>
-					</div>
-				<!-- end portfolio  item-->
-						<!-- start portfolio  item-->
-						<div class="portfolio-item" data-category="wordpress">
-							<div class="portfolio-item-inner outer-shadow">
-								<div class="portfolio-item-img">
-									<img src="img/wordpress/1/1.png" alt="pro1" data-screenshots="
-														img/wordpress/1/1.png,
-														img/wordpress/1/2.png,
-														img/wordpress/1/3.png,
-														img/wordpress/1/4.png,
-														img/wordpress/1/5.png">
-														<!-- view project btn-->
-									<span class="view-project">view project</span>
-								</div>
-								<p class="portfolio-item-title">smart station website</p>
-													<!-- start portfolio  details-->
-														<div class="portfolio-item-details">
-															<div class="row">
-																<div class="description">
-																	<h3>Project Brief</h3>
-																	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, earum officia numquam ab doloremque Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, earum officia numquam ab doloremque </p>
-																</div>
-																<div class="info">
-																	<h3>Project info</h3>
-																		<ul>
-																			<li>Date - <span>2021</span></li>
-																			<li>Clinen - <span>smart station</span></li>
-																			<li>Tools - <span>wordpress , Backer page builder ,Jevlen Theme ..</span></li>
-																			<li>web - <span><a href="https://ssit-jo.com/">Visit</a></span></li>
-																		</ul>
-																</div>
-															</div>
-														</div>
-							<!-- end portfolio  details-->
-							</div>
-						</div>
-					<!-- end portfolio  item-->
-						<!-- start portfolio  item-->
-							<div class="portfolio-item" data-category="design">
-								<div class="portfolio-item-inner outer-shadow">
-									<div class="portfolio-item-img">
-										<img src="img/design/1/1d.png" alt="pro1" data-screenshots="
-										img/design/1/1d.png,
-										img/design/1/2d.png,
-										img/design/1/3d.png">
-										<!-- view project btn-->
-										<span class="view-project">view project</span>
-									</div>
-									<p class="portfolio-item-title">UI Design for Sandni app</p>
-									<!-- start portfolio  details-->
-										<div class="portfolio-item-details">
-											<div class="row">
-												<div class="description">
-													<h3>Project Brief</h3>
-													<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, earum officia numquam ab doloremque Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, earum officia numquam ab doloremque </p>
-												</div>
-												<div class="info">
-													<h3>Project info</h3>
-														<ul>
-															<li>Date - <span>2020</span></li>
-															<li>Clinen - <span>xyz</span></li>
-															<li>Tools - <span>html,css,js</span></li>
-															<li>web - <span><a href="www.domian.com"></a></span></li>
-														</ul>
-												</div>
-											</div>
-										</div>
-									<!-- end portfolio  details-->
-								</div>
-							</div>
-						<!-- end portfolio  item-->
-						<!-- start portfolio  item-->
-												<div class="portfolio-item" data-category="design">
-													<div class="portfolio-item-inner outer-shadow">
-														<div class="portfolio-item-img">
-															<img src="img/design/2/1d.png" alt="pro1" data-screenshots="
-															img/design/2/1d.png,
-															img/design/2/2d.png,
-															img/design/2/3d.png,
-															img/design/2/4d.png,
-															img/design/2/5d.png">
-															<!-- view project btn-->
-															<span class="view-project">view project</span>
-														</div>
-														<p class="portfolio-item-title">Redesign OLX </p>
-														<!-- start portfolio  details-->
-															<div class="portfolio-item-details">
-																<div class="row">
-																	<div class="description">
-																		<h3>Project Brief</h3>
-																		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, earum officia numquam ab doloremque Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, earum officia numquam ab doloremque </p>
-																	</div>
-																	<div class="info">
-																		<h3>Project info</h3>
-																			<ul>
-																				<li>Date - <span>2020</span></li>
-																				<li>Clinen - <span>xyz</span></li>
-																				<li>Tools - <span>html,css,js</span></li>
-																				<li>web - <span><a href="www.domian.com"></a></span></li>
-																			</ul>
-																	</div>
-																</div>
-															</div>
-														<!-- end portfolio  details-->
-													</div>
-												</div>
-						<!-- end portfolio  item-->
+
 					</div>
 				<!-- end portfolio product item-->
 			</div>
-			<center>
-				<p class="mypara">also can visit my <span class="socil" title="codepen"><a target="_blank" href="https://codepen.io/enadabuzaid" class="outer-shadow hover-in-shadow"><i class="fab fa-codepen"></i></a></span>
-					and <span class="socil" title="github"><a href="https://github.com/Enadabuzaid/" target="_blank" class="outer-shadow hover-in-shadow"><i class="fab fa-git"></i></a></span> to see everything new
-				</p>
-				<a href="#testimonal" class="link-item btn-1 outer-shadow hover-in-shadow" style="margin-bottom:30px;margin-top:25px">See testimonal</a>
-			</center>
+<!--			<center>-->
+<!--				<p class="mypara">also can visit my <span class="socil" title="codepen"><a target="_blank" href="https://codepen.io/enadabuzaid" class="outer-shadow hover-in-shadow"><i class="fab fa-codepen"></i></a></span>-->
+<!--					and <span class="socil" title="github"><a href="https://github.com/Enadabuzaid/" target="_blank" class="outer-shadow hover-in-shadow"><i class="fab fa-git"></i></a></span> to see everything new-->
+<!--				</p>-->
+<!--				<a href="#testimonal" class="link-item btn-1 outer-shadow hover-in-shadow" style="margin-bottom:30px;margin-top:25px">See testimonal</a>-->
+<!--			</center>-->
 		</section>
 		<!-- end protfolio section-->
 
@@ -1068,55 +767,7 @@
 		</section>
 		<!-- contact section end  -->
 
-		<!-- start protfolio popup-->
-		<div class="pp portfolio-popup">
-			<div class="pp-details">
-				<div class="pp-details-inner">
-					<div class="pp-title">
-						<h2>invoices Project</h2>
-						<p>Category - <span class="pp-project-category"><?php echo $project_type2['project_target']; ?></span></p>
-					</div>
-					<div class="pp-project-details">
-						<div class="row">
-							<div class="description">
-								<h3>Project Brief</h3>
-								<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit quia ratione voluptatem dicta beatae vel praesentium iusto nesciunt
-									 ducimus dolorum consequatur a facere, saepe itaque id 
-									 nisi maxime. Architecto, tenetur!<span><a href="#"></a></span></p>
-							</div>
-							<div class="info">
-								<h3>Project info</h3>
-									<ul>
-										<li>Date - <span>..</span></li>
-										<li>Clinet - <span>..</span></li>
-										<li>Tools - <span>..</span></li>
-										<li>web - <span><a href="#"></a></span></li>
-										<li>more secreenShots - <a href="#"></a></li>
-									</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
 
-			<div class="separator"></div>
-			<div class="pp-main">
-				<div class="pp-main-inner">
-					<div class="pp-project-details-btn outer-shadow hover-in-shadow">Project Details <i class="fas fa-plus"></i></div>
-					<div class="pp-close outer-shadow hover-in-shadow">&times;</div>
-					<img class="pp-img outer-shadow" src="img/1.png" alt="img">
-					<div class="pp-counter">1 of 6</div>
-				</div>
-				<div class="pp-loader">
-					<div></div>
-				</div>
-		<!--  popup navigation-->
-			<div class="pp-prev"><i class="fas fa-play"></i></div>
-			<div class="pp-next"><i class="fas fa-play"></i></div>
-		<!--  end popup navigation-->
-			</div>
-		</div>
-		<!-- end protfolio popup-->
 
 <!-- switcher -->
 
