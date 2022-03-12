@@ -52,7 +52,18 @@ $footer_path = $root."admin-includes/footer.php";
                     ];
 
                     $data->insertProject($inputs);
-//                    print_r($inputs);
+
+                }
+
+
+//                DELETE PROJECT PROCESS
+                if(isset($_POST['delete_project'])){
+                    $project_id = $_POST['project_id'];
+
+                    if($data->trashedProject($project_id)){
+                        $message = "Project trashed successfully !!";
+                        $message_color ="warning";
+                    }
                 }
 
 
@@ -101,8 +112,6 @@ $footer_path = $root."admin-includes/footer.php";
                                             <?php
                                                 $project_type = new Project();
                                                 $types = $project_type->selectProjectType();
-
-
                                             ?>
                                             <label class="text-primary" for="inputState">project type</label>
                                             <div class="form-group">
@@ -203,6 +212,21 @@ $footer_path = $root."admin-includes/footer.php";
                         </div>
                     </div>
                 </div>
+                <!-- END ADD MODAL -->
+
+                <!-- success message  -->
+                <?php
+
+                if(isset($message)){
+
+                    ?>
+                    <div class="alert alert-<?php echo $message_color ?> alert-dismissible fade show" role="alert">
+                        <strong><?php echo $message; ?></strong> You should check it. please refresh the page.
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <?php } ?>
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
@@ -254,14 +278,58 @@ $footer_path = $root."admin-includes/footer.php";
 
                                         <td>
 
-                                            <form action="project_details.php" method="post" id="details_form" style="display: inline;">
-                                                <input type="hidden" value="<?php echo $project['project_id'] ?>" name="project_id">
-                                                <input type="submit" class="btn btn-primary btn-icon-split" value="details">
-                                            </form>
+<!--                                            <form action="project_details.php" method="post" id="details_form" style="display: inline;">-->
+<!--                                                <input type="hidden" value="--><?php //echo $project['project_id'] ?><!--" name="project_id">-->
+<!--                                                <input type="submit" class="btn btn-primary btn-icon-split" value="details">-->
+<!--                                            </form>-->
 
+<!--                                            <a href="#" class="btn-sm btn-warning btn-icon-split" data-toggle="modal" data-target="#deleteModal--><?php // echo  $project['project_id'];?><!--">-->
+<!--                                                <span class="icon text-white-50">-->
+<!--                                                    <i class="fas fa-exclamation-triangle"></i>-->
+<!--                                                </span>-->
+<!--                                                <span class="text">Trash</span>-->
+<!--                                            </a>-->
 
+                                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
+                                                    data-target="#edit{{ $grade->id }}"
+                                                    title="{{trans('grade_trans.Edit')}}">
+                                                <i class="fa fa-edit"></i>
+                                            </button>
+
+                                            <button type="button" class="btn btn-warning btn-sm" data-toggle="modal"
+                                                    data-target="#deleteModal<?php echo $project['project_id'] ?>"
+                                                    title="trash">
+                                                <i class="fas fa-exclamation-triangle"></i>
+                                            </button>
+
+                                            <!-- delete Modal-->
+                                            <div class="modal fade" id="deleteModal<?php echo $project['project_id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                 aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Are you sure want <b class="text-warning">TRASHED</b> this?</h5>
+                                                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">×</span>
+                                                            </button>
+                                                        </div>
+
+                                                        <div class="modal-footer">
+                                                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                                            <form action="<?=$_SERVER['PHP_SELF'];?>" method="post">
+                                                                <input type="hidden" id="" value="<?php echo $project['project_id'] ?>" name="project_id">
+                                                                <input type="submit" name="delete_project" value="Trash" class="btn btn-warning">
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
+
+
+
+
                                 <?php }?>
                                 </tbody>
                             </table>

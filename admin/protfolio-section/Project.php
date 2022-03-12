@@ -82,6 +82,16 @@ class Project extends DbConnection
         }
     }
 
+    public function trashedProject($project_id){
+        $sql = "UPDATE `projects` SET project_status='2' WHERE project_id=$project_id";
+
+        if($this->conn->query($sql)){
+            return true;
+        } else {
+            return "error ". $this->conn->error;
+        }
+    }
+
     public function insertProject(array $data){
         $sql = "INSERT INTO `projects` (`project_id`,`project_title`,`project_cover` , `project_type`, `project_status` ) 
         VALUES ('{$data['project_id']}' ,'{$data['project_title']}' , '{$data['project_cover']}' , '{$data['project_type']}' , '{$data['project_status']}')";
