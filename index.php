@@ -378,16 +378,14 @@
 											array_push($photo,$project_photo['photo']);
 										}
 
-                                       print_r($photo);
-										
 								?>
 									<img src="img/<?php echo $project['project_cover'];?>" alt="pro1" data-screenshots="
 										<?php
 											echo 'img/'.$project['project_cover'].',';
 											for($i=0; $i < count($photo) - 1; $i++){
-												echo "img/".$photo[$i].",";
+												echo "img/projects/gallery/".$photo[$i].",";
 											}
-											echo 'img/'.end($photo);
+											echo 'img/projects/gallery/'.end($photo);
 										?>
 									">
 								 

@@ -6,7 +6,12 @@ $sidebar_path = $root."admin-includes/sidebar.php";
 $topbar_path = $root."admin-includes/topbar.php";
 $footer_path = $root."admin-includes/footer.php";
 ?>
-
+<style>
+    .form-repeater-container{
+        display: none;
+    }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
 <?php  require  $header_path?>
 <body id="page-top">
 
@@ -35,8 +40,81 @@ $footer_path = $root."admin-includes/footer.php";
 
 //              ADD PROJECT PROCESS
                 if (isset($_POST['add_project'])){
+
+                    $images = $_FILES['images'];
                     $id = rand(10,1000);
 
+//                    if checked gallery
+                    if(isset($_POST['checked']) && $_POST['checked'] == 'on'){
+                        if (!empty($images)) {
+                            $img_name = array_filter($images['name']);
+                            $img_tmp = array_filter($images['tmp_name']);
+
+                            //INSERT IMAGES TO DATABASE
+                            foreach ($img_name as $image_name){
+                                $gallery_inputs = [
+                                    'project_id' => $id,
+                                    'photo' => $image_name,
+                                    'photo_status' => 1
+                                ];
+                                $data->insertProjectPhotos($gallery_inputs);
+                            }
+
+                            // MOVE PHOTO PROCESS
+                            $data->movePhotos($img_name,$img_tmp);
+                        }
+                    }
+
+
+//                    print_r($images['name']);
+//                    echo  "<br>";
+//                    print_r($images['tmp_name']);
+//                    echo  "<br>";
+//                    echo  "<br>";
+//                    echo  "<br>";
+//                    echo  "<br>";
+//                    echo  "<br>";
+//                    echo  "<pre>";
+//                    print_r($images['name']);
+//                    echo  "</pre>";
+//
+//                    die;
+
+
+//
+//                    $result = array_merge($img_name, $img_tmp);
+//
+////                   echo count($result);die;
+//
+//                   for ($i =0 ; $i < count($result); $i++){
+//                       $image_name ="";
+//                       $image_tmp = "";
+//                       if($i < count($result)/2){
+//                            $image_name .= $result[$i];
+//
+//                       } else{
+//                           $image_tmp .= $result[$i];
+//
+//                       }
+//
+//                       $image_folder = "/var/www/html/enad-abuzaid/img/projects/gallery/".$image_name;
+//                       move_uploaded_file($image_tmp, $image_folder);
+//                   }
+//                   die;
+                    //                    foreach (array_filter($images['tmp_name']) as $image_tmp){
+//                        $image_folder = "/var/www/html/enad-abuzaid/img/projects/gallery/".$image_name;
+//                        move_uploaded_file($image_tmp, $image_folder);
+//
+//                    }
+//
+//                    for ($i = 0 ; $i > count(array_filter($images['name'])); $i++){
+//
+//                    }
+
+
+
+
+                    //MOVE COVER PHOTO PROCESS
                     $filename = $_FILES["project_cover"]["name"];
                     $tempname = $_FILES["project_cover"]["tmp_name"];
                     $folder = "/var/www/html/enad-abuzaid/img/projects/covers/".$filename;
@@ -228,7 +306,34 @@ $footer_path = $root."admin-includes/footer.php";
                                         </div>
                                     </div>
 
+
+                                        <input type="checkbox" class="" id="gallery" name="checked">
+                                        <label for="horns">Have Gallery</label>
+
+                                        <div class="form-repeater-container" id="form-repeater">
+                                            <div class="row mt-5 mb-5">
+                                                <div class="col">
+                                                        <div class="form-group fieldGroup mt-3" style="">
+                                                            <div class="input-group">
+                                                                <input type="file" name="images[]" class="form-control" placeholder="upload image" />
+                                                            </div>
+                                                        </div>
+
+                                                        <a href="javascript:void(0)" class="btn btn-success addMore float-end mt-3">+ Add</a>
+
+                                                    <div class="form-group fieldGroupCopy" style="display: none;">
+                                                        <div class="input-group mt-2">
+                                                            <input type="file" name="images[]" class="form-control" placeholder="upload image" />
+                                                            <div class="input-group-addon">
+                                                                <a href="javascript:void(0)" class="btn btn-danger remove">Delete</i></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                             </div>
+
 
                             <div class="modal-footer">
                                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
@@ -273,6 +378,8 @@ $footer_path = $root."admin-includes/footer.php";
                                 <tbody class="text-center">
                                 <?php
                                 $i=1;
+
+                                if(!empty($projects_with_type)){
                                 foreach($projects_with_type as $project){
                                     ?>
 
@@ -315,18 +422,57 @@ $footer_path = $root."admin-includes/footer.php";
 <!--                                                </span>-->
 <!--                                                <span class="text">Trash</span>-->
 <!--                                            </a>-->
+                                        <?php
+                                            if ($project['project_status'] == 2)
+                                            {
+                                           ?>
+                                            <button type="button" class="btn btn-success btn-sm" data-toggle="modal"
+                                                    data-target="#returnModal<?php echo $project['project_id'] ?>"
+                                                    title="return">
+                                                <i class="fas fa-undo"></i>
+                                            </button>
+                                        <?php
+                                            } else {
+                                        ?>
+                                             <button type="button" class="btn btn-warning btn-sm" data-toggle="modal"
+                                                     data-target="#deleteModal<?php echo $project['project_id'] ?>"
+                                                     title="trash">
+                                                    <i class="fas fa-exclamation-triangle"></i>
+                                             </button>
+                                        <?php
+                                            }
+                                        ?>
 
                                             <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
                                                     data-target="#edit{{ $grade->id }}"
-                                                    title="{{trans('grade_trans.Edit')}}">
+                                                    title="Edit">
                                                 <i class="fa fa-edit"></i>
                                             </button>
 
-                                            <button type="button" class="btn btn-warning btn-sm" data-toggle="modal"
-                                                    data-target="#deleteModal<?php echo $project['project_id'] ?>"
-                                                    title="trash">
-                                                <i class="fas fa-exclamation-triangle"></i>
-                                            </button>
+
+                                            <!-- return Modal-->
+                                            <div class="modal fade" id="returnModal<?php echo $project['project_id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                 aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Are you sure want <b class="text-info">RETURN</b> this?</h5>
+                                                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">×</span>
+                                                            </button>
+                                                        </div>
+
+                                                        <div class="modal-footer">
+                                                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                                            <form action="protfolio_view.php" method="post">
+                                                                <input type="hidden" id="" value="<?php echo $project['project_id'] ?>" name="project_id">
+                                                                <input type="submit" name="return_project" value="return" class="btn btn-info">
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
 
                                             <!-- delete Modal-->
                                             <div class="modal fade" id="deleteModal<?php echo $project['project_id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -356,7 +502,10 @@ $footer_path = $root."admin-includes/footer.php";
 
 
 
-                                <?php }?>
+                                <?php
+                                    }
+                                 }
+                                ?>
                                 </tbody>
                             </table>
                         </div>
@@ -409,6 +558,38 @@ $footer_path = $root."admin-includes/footer.php";
 </div>
 
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // max of form
+        var maxGroup = 100;
 
+        //process
+        $(".addMore").click(function() {
+            if ($('body').find('.fieldGroup').length < maxGroup) {
+                var fieldHTML = '<div class="form-group fieldGroup">' + $(".fieldGroupCopy").html() + '</div>';
+                $('body').find('.fieldGroup:last').after(fieldHTML);
+            } else {
+                alert('Maximum ' + maxGroup + ' groups are allowed.');
+            }
+        });
+
+        //remove form
+        $("body").on("click", ".remove", function() {
+            $(this).parents(".fieldGroup").remove();
+        });
+    });
+
+
+    const formContainer = document.querySelector('.form-repeater-container');
+    document.querySelector("input[name='checked']").onchange = function() {
+        if(this.checked)
+            formContainer.style.display = 'block';
+        else
+            formContainer.style.display = 'none';
+
+    };
+</script>
 
 <?php  require   $footer_path;?>

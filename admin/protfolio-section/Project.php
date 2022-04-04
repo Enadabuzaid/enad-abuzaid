@@ -26,12 +26,15 @@ class Project extends DbConnection
         $sql = "SELECT * FROM `projects` INNER JOIN project_type ON projects.project_type = project_type.project_type_id";
 
         $result = $this->conn->query($sql) or die($this->conn->error);
-
-        while($row = $result->fetch_assoc())
-        {
-            $array[] = $row;
+        if(mysqli_num_rows($result) > 0 ) {
+            while ($row = $result->fetch_assoc()) {
+                $array[] = $row;
+            }
+            return $array;
         }
-        return $array;
+
+
+
 
     }
 
@@ -132,6 +135,28 @@ class Project extends DbConnection
         } else {
             return "error ". $this->conn->error;
         }
+    }
+
+    public function insertProjectPhotos(array $data){
+        $sql = "INSERT INTO `project_photos` (`projoct_photo_id`,`project_id`,`photo` , `photo_status` ) 
+        VALUES (NULL,'{$data['project_id']}' ,'{$data['photo']}' , '{$data['photo_status']}')";
+
+        if($this->conn->query($sql)){
+            return true;
+        } else {
+            return "error ". $this->conn->error;
+        }
+    }
+
+    public function movePhotos(array $imgs ,array $tmp){
+        for($i =0; $i < count($imgs); $i++){
+            $image_name =$imgs[$i];
+            $image_tmp = $tmp[$i];
+            $image_folder = "/var/www/html/enad-abuzaid/img/projects/gallery/".$image_name;
+            move_uploaded_file($image_tmp, $image_folder);
+
+        }
+
     }
 
 }
