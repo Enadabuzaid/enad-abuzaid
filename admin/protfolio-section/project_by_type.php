@@ -52,7 +52,6 @@ $footer_path = $root."admin-includes/footer.php";
                                     <th>project title</th>
                                     <th>project cover</th>
                                     <th>status</th>
-                                    <th>action</th>
                                 </tr>
                                 </thead>
                                 <tbody class="text-center">
@@ -76,22 +75,7 @@ $footer_path = $root."admin-includes/footer.php";
                                             ?>
                                             <span class="badge rounded-pill bg-<?php echo $class;?>  text-gray-100"><?php echo $status;?></span>
                                         </td>
-                                        <td>
-                                            <a href="#" class="btn-sm btn-primary btn-icon-split link">
-                                                <span class="icon text-white-50">
-                                                    <i class="fas fa-exclamation-triangle"></i>
-                                                </span>
-                                                <span class="text">Edit</span>
-                                            </a>
 
-                                            <a href="#" class="btn-sm btn-warning btn-icon-split">
-                                                <span class="icon text-white-50">
-                                                    <i class="fas fa-exclamation-triangle"></i>
-                                                </span>
-                                                <span class="text">Trash</span>
-                                            </a>
-
-                                        </td>
                                     </tr>
                                 <?php }?>
                                 </tbody>

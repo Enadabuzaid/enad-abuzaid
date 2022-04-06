@@ -1,9 +1,14 @@
 <?php
 require '../../config/Db.php';
 
-$b = "test";
 class Project extends DbConnection
 {
+    public  $inclue_path = "../admin-includes/";
+
+    public function ProjectPath($page){
+        return require $this->inclue_path.$page.".php";
+    }
+
     public function selectData( $where = 1){
         // $array = array();
         $sql = "SELECT * FROM `projects`"." WHERE " .$where;
@@ -32,10 +37,6 @@ class Project extends DbConnection
             }
             return $array;
         }
-
-
-
-
     }
 
     public function selectProjectType(){
@@ -121,6 +122,7 @@ class Project extends DbConnection
     }
 
     public function insertProject(array $data){
+
         $sql = "INSERT INTO `projects` (`project_id`,`project_title`,`project_cover` , `project_type`, `project_status` ) 
         VALUES ('{$data['project_id']}' ,'{$data['project_title']}' , '{$data['project_cover']}' , '{$data['project_type']}' , '{$data['project_status']}')";
 
@@ -157,6 +159,41 @@ class Project extends DbConnection
 
         }
 
+    }
+
+    public function viwSingleProject($id){
+        $sql = "
+        SELECT projects.project_title,
+           projects.project_cover,
+           project_type.project_type_name,
+           project_details.project_brief,
+           project_details.date,
+           project_details.client,
+           project_details.demo,
+           project_details.tools,
+           project_details.demo,
+           project_details.code,
+           project_details.screenshot_link,
+           project_photos.photo 
+        FROM projects 
+           INNER JOIN project_details ON project_details.project_id = projects.project_id 
+           INNER JOIN project_photos ON project_photos.project_id = projects.project_id
+           INNER JOIN project_type ON project_type.project_type_id = projects.project_type
+        WHERE projects.project_id = $id
+        ";
+
+        $result = $this->conn->query($sql) or die($this->conn->error);
+
+        while($row = $result->fetch_assoc())
+        {
+            $array[] = $row;
+        }
+        if (isset($array)){
+            return $array;
+        } else {
+            return false;
+            //empty;
+        }
     }
 
 }

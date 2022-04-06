@@ -4,8 +4,6 @@ require './Project.php';
 
 $data = new Project();
 $projects_detals = $data->selectDetailsOfProject();
-print_r($projects_detals);
-
 
 $title= "Project details | Data table";
 $root = '../';

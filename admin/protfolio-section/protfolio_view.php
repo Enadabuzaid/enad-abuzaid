@@ -34,143 +34,93 @@ $footer_path = $root."admin-includes/footer.php";
             <!-- Begin Page Content -->
             <div class="container-fluid">
                 <?php
-
                     $data = new Project();
                     $projects_with_type = $data->selctProjectWithType();
 
-//              ADD PROJECT PROCESS
-                if (isset($_POST['add_project'])){
+                   //--------- ADD PROJECT PROCESS ----------
+                    if (isset($_POST['add_project'])){
 
-                    $images = $_FILES['images'];
-                    $id = rand(10,1000);
+                        $images = $_FILES['images'];
+                        $id = rand(10,1000);
 
-//                    if checked gallery
-                    if(isset($_POST['checked']) && $_POST['checked'] == 'on'){
-                        if (!empty($images)) {
-                            $img_name = array_filter($images['name']);
-                            $img_tmp = array_filter($images['tmp_name']);
+    //                    if checked gallery
+                        if(isset($_POST['checked']) && $_POST['checked'] == 'on'){
+                            if (!empty($images)) {
+                                $img_name = array_filter($images['name']);
+                                $img_tmp = array_filter($images['tmp_name']);
 
-                            //INSERT IMAGES TO DATABASE
-                            foreach ($img_name as $image_name){
-                                $gallery_inputs = [
-                                    'project_id' => $id,
-                                    'photo' => $image_name,
-                                    'photo_status' => 1
-                                ];
-                                $data->insertProjectPhotos($gallery_inputs);
+                                //INSERT IMAGES TO DATABASE
+                                foreach ($img_name as $image_name){
+                                    $gallery_inputs = [
+                                        'project_id' => $id,
+                                        'photo' => $image_name,
+                                        'photo_status' => 1
+                                    ];
+                                    $data->insertProjectPhotos($gallery_inputs);
+                                }
+
+                                // MOVE PHOTO PROCESS
+                                $data->movePhotos($img_name,$img_tmp);
                             }
+                        }
 
-                            // MOVE PHOTO PROCESS
-                            $data->movePhotos($img_name,$img_tmp);
+
+
+
+                        //MOVE COVER PHOTO PROCESS
+                        $filename = $_FILES["project_cover"]["name"];
+                        $tempname = $_FILES["project_cover"]["tmp_name"];
+                        $folder = "/var/www/html/enad-abuzaid/img/projects/covers/".$filename;
+
+                        move_uploaded_file($tempname, $folder);
+
+                        $inputs = [
+                                'project_id' => $id,
+                                'project_title' => $_POST['project_title'],
+                                'project_cover' => "projects/covers/".$filename,
+                                'project_type' => $_POST['project_type'],
+                                'project_status' => $_POST['project_status'],
+                                'project_date' => $_POST['project_date'],
+                                'project_client' => $_POST['project_client'],
+                                'project_code' => $_POST['project_code'],
+                                'project_tool' => $_POST['project_tool'],
+                                'project_demo' => $_POST['project_demo'],
+                                'project_screen' => $_POST['project_screen'],
+                                'project_breif'=>$_POST['project_breif']
+                        ];
+
+
+                        $data->insertProject($inputs);
+
+                    }
+
+                   //--------- TRASH PROJECT PROCESS ----------
+                    if(isset($_POST['trash_project'])){
+                        $project_id = $_POST['project_id'];
+
+                        if($data->trashedProject($project_id)){
+                            $message = "Project trashed successfully !!";
+                            $message_color ="warning";
                         }
                     }
 
-
-//                    print_r($images['name']);
-//                    echo  "<br>";
-//                    print_r($images['tmp_name']);
-//                    echo  "<br>";
-//                    echo  "<br>";
-//                    echo  "<br>";
-//                    echo  "<br>";
-//                    echo  "<br>";
-//                    echo  "<pre>";
-//                    print_r($images['name']);
-//                    echo  "</pre>";
-//
-//                    die;
-
-
-//
-//                    $result = array_merge($img_name, $img_tmp);
-//
-////                   echo count($result);die;
-//
-//                   for ($i =0 ; $i < count($result); $i++){
-//                       $image_name ="";
-//                       $image_tmp = "";
-//                       if($i < count($result)/2){
-//                            $image_name .= $result[$i];
-//
-//                       } else{
-//                           $image_tmp .= $result[$i];
-//
-//                       }
-//
-//                       $image_folder = "/var/www/html/enad-abuzaid/img/projects/gallery/".$image_name;
-//                       move_uploaded_file($image_tmp, $image_folder);
-//                   }
-//                   die;
-                    //                    foreach (array_filter($images['tmp_name']) as $image_tmp){
-//                        $image_folder = "/var/www/html/enad-abuzaid/img/projects/gallery/".$image_name;
-//                        move_uploaded_file($image_tmp, $image_folder);
-//
-//                    }
-//
-//                    for ($i = 0 ; $i > count(array_filter($images['name'])); $i++){
-//
-//                    }
-
-
-
-
-                    //MOVE COVER PHOTO PROCESS
-                    $filename = $_FILES["project_cover"]["name"];
-                    $tempname = $_FILES["project_cover"]["tmp_name"];
-                    $folder = "/var/www/html/enad-abuzaid/img/projects/covers/".$filename;
-
-                    move_uploaded_file($tempname, $folder);
-
-                    $inputs = [
-                            'project_id' => $id,
-                            'project_title' => $_POST['project_title'],
-                            'project_cover' => "projects/covers/".$filename,
-                            'project_type' => $_POST['project_type'],
-                            'project_status' => $_POST['project_status'],
-                            'project_date' => $_POST['project_date'],
-                            'project_client' => $_POST['project_client'],
-                            'project_code' => $_POST['project_code'],
-                            'project_tool' => $_POST['project_tool'],
-                            'project_demo' => $_POST['project_demo'],
-                            'project_screen' => $_POST['project_screen'],
-                            'project_breif'=>"test"
-                    ];
-
-
-                    $data->insertProject($inputs);
-
-                }
-
-
-//                TRASH PROJECT PROCESS
-                if(isset($_POST['trash_project'])){
-                    $project_id = $_POST['project_id'];
-
-                    if($data->trashedProject($project_id)){
-                        $message = "Project trashed successfully !!";
-                        $message_color ="warning";
+                   //--------- RETURN PROJECT PROCESS ----------
+                    if (isset($_POST['return_project'])){
+                        $project_id = $_POST['project_id'];
+                        if($data->returnProject($project_id)){
+                            $message = "Project returned  successfully !!";
+                            $message_color ="info";
+                        }
                     }
-                }
 
-//                RETURN PROJECT PROCESS
-                if (isset($_POST['return_project'])){
-                    $project_id = $_POST['project_id'];
-                    if($data->returnProject($project_id)){
-                        $message = "Project returned  successfully !!";
-                        $message_color ="info";
+                   //--------- DELETE PROJECT PROCESS ----------
+                    if (isset($_POST['delete_project'])){
+                        $project_id = $_POST['project_id'];
+                        if($data->deleteProject($project_id)){
+                            $message = "Project deleted  successfully !!";
+                            $message_color ="danger";
+                        }
                     }
-                }
-
-//                DELETE PROJECT PROCESS
-                if (isset($_POST['delete_project'])){
-                    $project_id = $_POST['project_id'];
-                    if($data->deleteProject($project_id)){
-                        $message = "Project deleted  successfully !!";
-                        $message_color ="danger";
-                    }
-                }
-
-
                 ?>
                 <a href="#" class="btn-sm btn-primary btn-icon-split mb-4 text-right" data-toggle="modal" data-target="#addModal">
                         <span class="icon text-white-50">
@@ -347,17 +297,19 @@ $footer_path = $root."admin-includes/footer.php";
 
                 <!-- success message  -->
                 <?php
-
                 if(isset($message)){
-
-                    ?>
+                ?>
                     <div class="alert alert-<?php echo $message_color ?> alert-dismissible fade show" role="alert">
                         <strong><?php echo $message; ?></strong> You should check it. please refresh the page.
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                <?php } ?>
+                <?php
+                 }
+                ?>
+                <!-- end success message  -->
+
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
@@ -377,11 +329,11 @@ $footer_path = $root."admin-includes/footer.php";
                                 </thead>
                                 <tbody class="text-center">
                                 <?php
-                                $i=1;
+                                    $i=1;
 
-                                if(!empty($projects_with_type)){
-                                foreach($projects_with_type as $project){
-                                    ?>
+                                    if(!empty($projects_with_type)){
+                                    foreach($projects_with_type as $project){
+                                ?>
 
                                     <tr>
                                         <td><?php echo $i++; ?></td>
@@ -411,17 +363,6 @@ $footer_path = $root."admin-includes/footer.php";
 
                                         <td>
 
-<!--                                            <form action="project_details.php" method="post" id="details_form" style="display: inline;">-->
-<!--                                                <input type="hidden" value="--><?php //echo $project['project_id'] ?><!--" name="project_id">-->
-<!--                                                <input type="submit" class="btn btn-primary btn-icon-split" value="details">-->
-<!--                                            </form>-->
-
-<!--                                            <a href="#" class="btn-sm btn-warning btn-icon-split" data-toggle="modal" data-target="#deleteModal--><?php // echo  $project['project_id'];?><!--">-->
-<!--                                                <span class="icon text-white-50">-->
-<!--                                                    <i class="fas fa-exclamation-triangle"></i>-->
-<!--                                                </span>-->
-<!--                                                <span class="text">Trash</span>-->
-<!--                                            </a>-->
                                         <?php
                                             if ($project['project_status'] == 2)
                                             {
@@ -443,10 +384,19 @@ $footer_path = $root."admin-includes/footer.php";
                                             }
                                         ?>
 
-                                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
+
+
+                                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
                                                     data-target="#edit{{ $grade->id }}"
                                                     title="Edit">
                                                 <i class="fa fa-edit"></i>
+                                            </button>
+
+                                            
+                                            <button type="button" class="btn btn-info btn-sm"
+                                                    title="show">
+                                                <a class="text-white" href="project_show.php?id=<?php echo $project['project_id']?>">                                                <i class="fas fa-eye"></i>
+                                                </a>
                                             </button>
 
 

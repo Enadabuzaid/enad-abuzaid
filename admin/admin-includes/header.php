@@ -6,8 +6,6 @@
     define('PORT_PATH' , "http://localhost/enad-abuzaid/admin/protfolio-section/"); // protofolio section
     define('PROJECT_PATH' , "http://localhost/enad-abuzaid/admin/"); // protofolio section
 
-
-
 ?>
 <head>
 
